@@ -11,7 +11,6 @@ const routes: Routes =[
   {
     path: '',
     redirectTo: 'dashboard',
-
     pathMatch: 'full',
 
   }, {
@@ -33,6 +32,7 @@ const routes: Routes =[
       }
     ]
   },
+  
    {
     path: '**',
     redirectTo: 'dashboard'

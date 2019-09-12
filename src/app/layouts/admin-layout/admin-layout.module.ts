@@ -13,6 +13,7 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { VoucherModule } from 'src/app/modules/vouchers/vouchers.module';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     // FormsModule,
     // HttpClientModule,
     NgbModule,
+    VoucherModule,
     ClipboardModule
   ],
   declarations: [

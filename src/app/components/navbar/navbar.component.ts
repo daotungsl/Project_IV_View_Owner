@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { CustomerService } from 'src/app/auth/customer.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,12 +13,22 @@ export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
   public location: Location;
-  constructor(location: Location,  private element: ElementRef, private router: Router) {
+  constructor(
+    location: Location,
+      private element: ElementRef,
+      private customer: CustomerService,
+       private router: Router) {
     this.location = location;
   }
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+  }
+
+  tryLogout(){
+    this.customer.removeToken();
+    this.router.navigateByUrl('/dashboard')
+    console.log('click logout')
   }
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());

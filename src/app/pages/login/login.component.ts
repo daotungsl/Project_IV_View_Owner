@@ -51,9 +51,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     console.log(this.form.value);
-
-
-
     this.service.trylogin(this.form.value)
       .subscribe({
         next: value => {
@@ -63,10 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('/dashboard')
 
             console.log('request success', localStorage.getItem('TOKEN'));
-
-          
-
-
+            
           this.service.getInfo().subscribe({
             next: value => { console.log(value) },
             error: err => console.log(err)
@@ -77,7 +71,5 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       })
     console.log("click sign in");
-
-
   }
 }

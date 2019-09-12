@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {map} from 'rxjs/operators';
-import { API_DOMAIN, HTTP_HEADER } from 'src/app/shared/constant';
+import { API_DOMAIN, HTTP_HEADER, HTTP_HEADER_LOGIN } from 'src/app/shared/constant';
 import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
 
 @Injectable({
@@ -24,7 +24,7 @@ loginFormControl = {
       `${API_DOMAIN}login`,
       value,
       {
-        headers: HTTP_HEADER
+        headers: HTTP_HEADER_LOGIN
       }
     ).pipe(
       map(res => {
