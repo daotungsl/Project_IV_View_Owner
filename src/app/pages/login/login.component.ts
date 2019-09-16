@@ -28,7 +28,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    if(this.customer.isLogged()){
+      this.router.navigateByUrl("/dashboard");
+    }
     this.form = this.fb.group(this.service.loginFormControl);
+
   }
   ngOnDestroy() {
   }

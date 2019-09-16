@@ -24,11 +24,6 @@ import { VoucherComponent } from './voucher/voucher.component';
     VoucherAddComponent,
     VoucherListComponent
 
-  ],
-  exports:[
-    VoucherComponent,
-    VoucherAddComponent,
-    VoucherListComponent
   ]
 })
 

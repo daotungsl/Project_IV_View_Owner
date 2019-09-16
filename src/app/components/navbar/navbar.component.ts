@@ -1,8 +1,10 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { CustomerService } from 'src/app/auth/customer.service';
+import { VoucherRoutes } from 'src/app/modules/vouchers/vouchers.routing';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-navbar',
@@ -12,36 +14,51 @@ import { CustomerService } from 'src/app/auth/customer.service';
 export class NavbarComponent implements OnInit {
   public focus;
   public listTitles: any[];
+  public listTitlesVoucher: any[];
   public location: Location;
   constructor(
     location: Location,
-      private element: ElementRef,
-      private customer: CustomerService,
-       private router: Router) {
+    private element: ElementRef,
+    private customer: CustomerService,
+    private router: Router,
+    private title: Title
+    ) {
     this.location = location;
   }
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    this.router.events.subscribe((e: RouterEvent) => {
+      if (e instanceof NavigationEnd) {
+        this.title.setTitle(this.getTitle());
+      }
+    })
+
   }
 
-  tryLogout(){
+  tryLogout() {
     this.customer.removeToken();
     this.router.navigateByUrl('/dashboard')
     console.log('click logout')
   }
-  getTitle(){
+  getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());
-    if(titlee.charAt(0) === '#'){
-        titlee = titlee.slice( 1 );
+    console.log(titlee);
+    if (titlee.charAt(0) === '#') {
+      titlee = titlee.slice(1);
     }
-
-    for(var item = 0; item < this.listTitles.length; item++){
-        if(this.listTitles[item].path === titlee){
-            return this.listTitles[item].title;
+    if (titlee.indexOf("voucher") == 1){
+      return "Voucher"
+    }
+      for (var item = 0; item < this.listTitles.length; item++) {
+        if (this.listTitles[item].path === titlee) {
+          return this.listTitles[item].title;
         }
-    }
+      }
     return 'Dashboard';
   }
 
+  goBack() {
+    this.location.back();
+  }
 }

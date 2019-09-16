@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./voucher.component.scss']
 })
 export class VoucherComponent implements OnInit {
+  isShowForm = false;
 
   constructor() { }
 

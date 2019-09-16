@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { VoucherComponent } from '../voucher/voucher.component';
 
 @Component({
   selector: 'app-voucher-list',
@@ -10,6 +11,8 @@ export class VoucherListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+  onShowForm() {
   }
 
 }

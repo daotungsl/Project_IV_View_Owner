@@ -1,4 +1,4 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-warning pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
       <!-- Card stats -->
@@ -92,5 +92,11 @@
   </div>
 </div>
 <!-- Page content -->
-<app-voucher-list></app-voucher-list>
-
+<!-- <div *ngIf="isShowForm">
+  <app-voucher-add></app-voucher-add>
+</div>
+<div *ngIf="!isShowForm">
+  
+</div>
+<button class="btn btn-icon btn-3 btn-primary" type="button"  (click)="isShowForm = true"> -->
+  <router-outlet></router-outlet>

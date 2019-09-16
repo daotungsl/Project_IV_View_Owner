@@ -16,10 +16,11 @@ const routes: Routes =[
   }, {
     path: '',
     component: AdminLayoutComponent,
+    canActivate: [NeedAuthGuard],
     children: [
       {
         path: '',
-        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule',
       }
     ]
   }, {
