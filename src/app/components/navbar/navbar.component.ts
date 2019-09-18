@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     this.router.events.subscribe((e: RouterEvent) => {
       if (e instanceof NavigationEnd) {
-        this.title.setTitle(this.getTitle());
+        this.title.setTitle('DealHunter' + ' - ' + this.getTitle());
       }
     })
 

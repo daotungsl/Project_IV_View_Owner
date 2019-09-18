@@ -4,7 +4,8 @@
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-6">
           <h1 class="text-white">Welcome!</h1>
-          <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p>
+          <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for
+            free.</p>
         </div>
       </div>
     </div>
@@ -39,29 +40,49 @@
             <!-- <small>Or sign up with credentials</small> -->
             <h3>Sign up with credentials</h3>
           </div>
-          <form role="form" (submit)="onSubmit(formRegister);" #formRegister="ngForm">
-            <div class="form-group">
+          <form role="form" [formGroup]="formRegister">
+            <div class="form-group" *ngIf="formRegister.get('phone') as phone">
               <div class="input-group input-group-alternative mb-3">
                 <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                  <span class="input-group-text"><i class="ni ni-tablet-button"></i></span>
                 </div>
-                <input class="form-control" placeholder="Name" ngModel name="name" type="text">
+                <input class="form-control" placeholder="Phone number" [formControl]='phone' type="text">
+
               </div>
+              <ng-container *ngIf="phone.invalid && phone.dirty">
+                <div class="text-danger">
+                  <span *ngIf="phone.hasError('required')">{{errors.phone.required}}</span>
+                  <span *ngIf="phone.hasError('pattern')">{{errors.phone.syntax}}</span>
+                </div>
+
+              </ng-container>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="formRegister.get('email') as email">
               <div class="input-group input-group-alternative mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                 </div>
-                <input class="form-control" placeholder="Email" ngModel name="email" type="email" required>
+                <input class="form-control" placeholder="Email" [formControl]='email' type="email">
+              </div>
+              <div class="text-danger">
+                <ng-container *ngIf="email.invalid && email.dirty">
+                  <span *ngIf="email.hasError('required')">{{errors.email.required}}</span>
+                  <span *ngIf="email.hasError('email')">{{errors.email.syntax}}</span>
+                </ng-container>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="formRegister.get('password') as password">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control" placeholder="Password" ngModel name="password" type="password">
+                <input class="form-control" placeholder="Password" [formControl]='password' type="password">
+              </div>
+              <div class="text-danger">
+                <ng-container *ngIf="password.invalid && password.dirty">
+                  <span *ngIf="password.hasError('required')">{{errors.password.required}}</span>
+                  <span *ngIf="password.hasError('pattern')">{{errors.password.syntax}}</span>
+                </ng-container>
               </div>
             </div>
             <div class="row my-4">
@@ -75,7 +96,7 @@
               </div>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-primary mt-4">Create account</button>
+              <button type="submit" (click)="doSubmit()" class="btn btn-primary mt-4">Create account</button>
             </div>
           </form>
         </div>

@@ -40,20 +40,25 @@
           </div>
           <form role="form" [formGroup]="form">
             <!-- <form role="form" (submit)="onSubmit(formLogin);" #formLogin="ngForm"> -->
-            <div class="form-group mb-3">
+            <div class="form-group mb-3" *ngIf="form.get('username') as username">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                 </div>
-                <input class="form-control" placeholder="Email" formControlName='username' type="email">
+                <input class="form-control" placeholder="Email" [formControl]='username' type="email">
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="form.get('password') as password">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control" placeholder="Password" formControlName='password' type="password">
+                <input class="form-control" placeholder="Password" [formControl]="password" type="password">
+                <ng-container *ngIf="password.invalid && password.dirty">
+                    <span *ngIf="password.hasError('required')">Loi cmnr</span>
+                </ng-container>
+                
+                
               </div>
             </div>
             <div class="custom-control custom-control-alternative custom-checkbox">

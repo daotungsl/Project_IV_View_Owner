@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { RegisterService } from './register.service';
+import { CustomerService } from 'src/app/auth/customer.service';
+import { Router } from '@angular/router';
+import { ERROR_REGISTER } from 'src/app/shared/err-notify';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-register',
@@ -6,36 +12,53 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-//  account : IAccount;
- account = {
-  name: String,
-  email: String,
-  password: String,
- }
-  
- 
-date = new Date();
-// name= '';
-// email= '';
-// password = '';
+  formRegister: FormGroup;
+  token: any;
+  errors = ERROR_REGISTER;
+  date = new Date();
 
-  constructor( ) { }
+
+  constructor(
+    private fb: FormBuilder,
+    private serviceRegister: RegisterService,
+    private serviceLogin: LoginService,
+    private customer: CustomerService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    
+    if (this.customer.isLogged()) {
+      this.router.navigateByUrl("/dashboard");
+    }
+    this.formRegister = this.fb.group(this.serviceRegister.registerFormControl);
   }
 
-  submitRegister(){
+  submitRegister() {
     console.log("get date form");
   }
-  onSubmit(formRegister){
-    this.account.email = formRegister.value.email;
-    this.account.name = formRegister.value.name;
-    this.account.password = formRegister.value.password;
-    // this.account.createdAt = this.date.getMilliseconds();
-    // this.account.updateAt = this.date.getTime();
-    // this.account.status = 1;
-    // this.account.id = 1;
-    console.log(this.account);
+  doSubmit() {
+    
+    if (this.formRegister.invalid) {
+      return;
+    }
+console.log(this.formRegister.value);
+    this.serviceRegister.tryRegister(this.formRegister.value)
+    .subscribe({
+      next: value => {
+
+          this.token = value;
+          this.customer.setToken(this.token);
+          this.router.navigateByUrl('/dashboard')
+
+          console.log('request success', localStorage.getItem('TOKEN'));
+        
+      },
+      error: err => {
+        console.log(err)
+        this.token = err;
+          this.customer.setToken(this.token);
+          this.router.navigateByUrl('/dashboard')
+      }
+    })
   }
 }

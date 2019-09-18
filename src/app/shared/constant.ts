@@ -1,4 +1,4 @@
-export const API_DOMAIN = 'https://localhost:44346/';
+export const API_DOMAIN = 'http://localhost:8080/';
 const TOKEN = 'TOKEN';
 export let HTTP_HEADER = {
   'Content-Type': 'application/json',

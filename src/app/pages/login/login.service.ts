@@ -10,6 +10,7 @@ import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
   providedIn: 'root'
 })
 export class LoginService {
+  token: 'abcxyz'
 loginFormControl = {
   // name: [null, [Validators.required, Validators.maxLength(255)]],
   username: [null, [Validators.required]],
@@ -32,6 +33,7 @@ loginFormControl = {
       })
     );
   }
+  
 
   getInfo(){
     console.log("in service")

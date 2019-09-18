@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { HTTP_HEADER } from 'src/app/shared/constant';
 import { CustomerService } from 'src/app/auth/customer.service';
 import { Router } from '@angular/router';
+import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +13,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   form: FormGroup;
-  // account : IAccount;
-  account = {
-    name: String,
-    email: String,
-    password: String,
-    remember: Boolean
-  }
-  token: any
+
+  token: any;
   constructor(
     private fb: FormBuilder,
     private service: LoginService,
@@ -37,17 +32,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  onSubmit(formLogin) {
-    this.account.email = formLogin.value.email;
-    this.account.name = formLogin.value.name;
-    this.account.password = formLogin.value.password;
-    this.account.remember = formLogin.value.remember;
-    // this.account.createdAt = this.date.getMilliseconds();
-    // this.account.updateAt = this.date.getTime();
-    // this.account.status = 1;
-    // this.account.id = 1;
-    console.log(this.account);
-  }
 
   doSubmit() {
     if (this.form.invalid) {
@@ -72,6 +56,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error: err => {
           console.log(err)
+          this.token = err;
+            this.customer.setToken(this.token);
+            this.router.navigateByUrl('/dashboard')
         }
       })
     console.log("click sign in");
