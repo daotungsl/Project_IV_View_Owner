@@ -12,7 +12,7 @@ import { LangPipe } from './lang/lang.pipe';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   exports: [
     CommonModule,

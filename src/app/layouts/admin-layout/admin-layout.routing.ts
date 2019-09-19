@@ -3,13 +3,12 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
-import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { VoucherComponent } from 'src/app/modules/vouchers/voucher/voucher.component';
+import { ShopComponent } from 'src/app/modules/shops/shop/shop.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'user-profile', component: UserProfileComponent },
     { path: 'tables', component: TablesComponent },
     {
         path: 'voucher',
@@ -18,6 +17,16 @@ export const AdminLayoutRoutes: Routes = [
             {
                 path: '',
                 loadChildren: 'src/app/modules/vouchers/vouchers.module#VoucherModule',
+            }
+        ]
+    },
+    {
+        path: 'info',
+        component: ShopComponent,
+        children: [
+            {
+                path: '',
+                loadChildren: 'src/app/modules/shops/shops.module#ShopsModule',
             }
         ]
     },
