@@ -14,7 +14,8 @@ export class RegisterService {
   registerFormControl = {
     email:[null, [Validators.required, Validators.email]],
     phone:[null, [Validators.required, Validators.pattern(/([+]84[9|1]|09|01[2|6|8|9])+([0-9]{8})\b/g)]],
-    password:[null,[Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]]
+    password:[null,[Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
+    confirmPassword:[null, [Validators.required]],
   }
   constructor(
     private http: HttpClient

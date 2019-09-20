@@ -5,6 +5,7 @@ import { CustomerService } from 'src/app/auth/customer.service';
 import { Router } from '@angular/router';
 import { ERROR_REGISTER } from 'src/app/shared/err-notify';
 import { LoginService } from '../login/login.service';
+import { MustMatch } from './mustMatch.component';
 
 @Component({
   selector: 'app-register',
@@ -13,6 +14,7 @@ import { LoginService } from '../login/login.service';
 })
 export class RegisterComponent implements OnInit {
   formRegister: FormGroup;
+  isChecked: boolean;
   token: any;
   errors = ERROR_REGISTER;
   date = new Date();
@@ -30,35 +32,37 @@ export class RegisterComponent implements OnInit {
     if (this.customer.isLogged()) {
       this.router.navigateByUrl("/dashboard");
     }
-    this.formRegister = this.fb.group(this.serviceRegister.registerFormControl);
+    this.formRegister = this.fb.group(
+      this.serviceRegister.registerFormControl,
+      { validator: MustMatch('password', 'confirmPassword') }
+    );
   }
 
-  submitRegister() {
-    console.log("get date form");
+  checkBoxValue(e) {
+    this.isChecked = e.target.checked;
+
   }
   doSubmit() {
-    
+
     if (this.formRegister.invalid) {
       return;
     }
-console.log(this.formRegister.value);
+    console.log(this.formRegister.value);
     this.serviceRegister.tryRegister(this.formRegister.value)
-    .subscribe({
-      next: value => {
+      .subscribe({
+        next: value => {
 
           this.token = value;
           this.customer.setToken(this.token);
           this.router.navigateByUrl('/dashboard')
 
           console.log('request success', localStorage.getItem('TOKEN'));
-        
-      },
-      error: err => {
-        console.log(err)
-        this.token = err;
-          this.customer.setToken(this.token);
-          this.router.navigateByUrl('/dashboard')
-      }
-    })
+
+        },
+        error: err => {
+          console.log(err)
+
+        }
+      })
   }
 }

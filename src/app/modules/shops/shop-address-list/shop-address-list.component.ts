@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ShopsService } from '../shops.service';
+import { ERROR_ADDRESS } from 'src/app/shared/err-notify';
+
 
 @Component({
   selector: 'app-shop-address-list',
@@ -7,6 +11,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./shop-address-list.component.scss']
 })
 export class ShopAddressListComponent implements OnInit {
+  formAddAddress: FormGroup
+  errors = ERROR_ADDRESS;
+
   closeResult: string;
 
   datas = [{
@@ -47,72 +54,8 @@ export class ShopAddressListComponent implements OnInit {
     storeId: 2,
     status: 2
 
-  },
-  {
-    address: '3254 Dai Kim',
-    description: 'Hang o day nhu c*t',
-    cityId: 23,
-    storeId: 2,
-    status: 2
-
-  },
-  {
-    address: '3254 Dai Kim',
-    description: 'Hang o day nhu c*t',
-    cityId: 23,
-    storeId: 2,
-    status: 2
-
-  },
-  {
-    address: '3254 Dai Kim',
-    description: 'Hang o day nhu c*t',
-    cityId: 23,
-    storeId: 2,
-    status: 2
-
-  },
-  {
-    address: '3254 Dai Kim',
-    description: 'Hang o day nhu c*t',
-    cityId: 23,
-    storeId: 2,
-    status: 2
-
-  },
-  {
-    address: '3254 Dai Kim',
-    description: 'Hang o day nhu c*t',
-    cityId: 23,
-    storeId: 2,
-    status: 2
-
-  },
-  {
-    address: '3254 Dai Kim',
-    description: 'Hang o day nhu c*t',
-    cityId: 23,
-    storeId: 2,
-    status: 2
-
-  },
-  {
-    address: '3254 Dai Kim',
-    description: 'Hang o day nhu c*t',
-    cityId: 23,
-    storeId: 2,
-    status: 2
-
-  },
-  {
-    address: '3254 Dai Kim',
-    description: 'Hang o day nhu c*t',
-    cityId: 23,
-    storeId: 2,
-    status: 2
-
   }
-]
+  ]
 
   datasCity = [{
     name: "Hà Nội",
@@ -156,20 +99,51 @@ export class ShopAddressListComponent implements OnInit {
   ]
 
   constructor(
+    private fb: FormBuilder,
+    private serviceAddress: ShopsService,
     private modalService: NgbModal
+
   ) { }
 
   ngOnInit() {
+    this.formAddAddress = this.fb.group(this.serviceAddress.AddressFormControl);
+  }
+
+  doSubmit() {
+    console.log('click submit edit modal');
+    console.log(this.formAddAddress.value);
+    if (this.formAddAddress.invalid) {
+      return;
+    }
+    console.log(this.formAddAddress.value);
+    this.serviceAddress.tryAddAddress(this.formAddAddress.value)
+      .subscribe({
+        next: value => {
+
+          console.log(value);
+
+        },
+        error: err => {
+          console.log(err);
+
+        }
+      })
   }
 
   open(content, type, modalDimension) {
-    if (modalDimension === 'sm' && type === 'modal_mini') {
+    if (modalDimension === 'sm' && type === 'modal_add') {
+      this.modalService.open(content, { windowClass: 'modal-lage', size: 'sm', centered: true }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    } else if (modalDimension === 'sm' && type === 'modal_edit') {
       this.modalService.open(content, { windowClass: 'modal-mini', size: 'sm', centered: true }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
-    } else if (modalDimension === '' && type === 'Notification') {
+    } else if (modalDimension === '' && type === 'modal_delete') {
       this.modalService.open(content, { windowClass: 'modal-danger', centered: true }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {

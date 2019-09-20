@@ -85,10 +85,24 @@
                 </ng-container>
               </div>
             </div>
+            <div class="form-group" *ngIf="formRegister.get('confirmPassword') as confirmPassword">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                  </div>
+                  <input class="form-control" placeholder="Confirm Password" [formControl]='confirmPassword' type="password">
+                </div>
+                <div class="text-danger">
+                  <ng-container *ngIf="formRegister.get('password').value != confirmPassword.value  ">
+                  <span *ngIf="confirmPassword.hasError('required')">{{errors.confirmPassword.required}}</span>
+                  <span *ngIf="confirmPassword.hasError('mustMatch')">{{errors.confirmPassword.syntax}}</span>
+                  </ng-container>
+                </div>
+              </div>
             <div class="row my-4">
               <div class="col-12">
                 <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id="customCheckRegister" type="checkbox">
+                  <input class="custom-control-input" id="customCheckRegister" (change)="checkBoxValue($event)" type="checkbox">
                   <label class="custom-control-label" for="customCheckRegister">
                     <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
                   </label>
@@ -96,7 +110,7 @@
               </div>
             </div>
             <div class="text-center">
-              <button type="submit" (click)="doSubmit()" class="btn btn-primary mt-4">Create account</button>
+              <button type="submit" (click)="doSubmit()" [disabled]="!isChecked" class="btn btn-primary mt-4">Create account</button>
             </div>
           </form>
         </div>
