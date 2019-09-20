@@ -110,8 +110,9 @@ export class ShopAddressListComponent implements OnInit {
   }
 
   doSubmit() {
-    console.log('click submit edit modal');
-    console.log(this.formAddAddress.value);
+    console.log(this.formAddAddress)
+
+    console.log(this.formAddAddress.value)
     if (this.formAddAddress.invalid) {
       return;
     }
@@ -130,7 +131,14 @@ export class ShopAddressListComponent implements OnInit {
       })
   }
 
-  open(content, type, modalDimension) {
+
+  open(content, type, modalDimension, data) {
+
+    this.formAddAddress.get('address').setValue(data.address);
+    this.formAddAddress.get('description').setValue(data.description);
+    this.formAddAddress.get('cityId').setValue(data.cityId);
+    this.formAddAddress.get('storeId').setValue(data.storeId);
+
     if (modalDimension === 'sm' && type === 'modal_add') {
       this.modalService.open(content, { windowClass: 'modal-lage', size: 'sm', centered: true }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
@@ -138,6 +146,7 @@ export class ShopAddressListComponent implements OnInit {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       });
     } else if (modalDimension === 'sm' && type === 'modal_edit') {
+
       this.modalService.open(content, { windowClass: 'modal-mini', size: 'sm', centered: true }).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
       }, (reason) => {

@@ -22,7 +22,6 @@ export class ShopsService {
   ) { }
 
   tryAddAddress(value): Observable<IAddressSO>{
-    console.log(value);
     return this.http.post<{data: IAddressSO}>(
       `${API_DOMAIN}so/store/address`,
     value,

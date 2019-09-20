@@ -4,7 +4,7 @@
         <div class="card shadow">
             <div class="card-header border-0">
                 <!-- Add -->
-                <button class="btn  btn-success text-center" (click)="open(classic1, 'modal_add', '')">
+                <button class="btn  btn-success text-center" (click)="open(classic1, 'modal_add', '', 'null')">
                     <i class="fas fa-plus"></i>
                     Add New Address
                 </button>
@@ -14,7 +14,7 @@
                     <div class="modal-content">
                         <div class="modal-body ">
                             <div class="card bg-secondary shadow border-0">
-                                <form>
+                                <form #myform="ngForm">
                                     <h3 class=" text-center mb-4">New Address</h3>
                                     <div class="pl-lg-4">
                                         <div class="row">
@@ -26,7 +26,7 @@
                                                     <input type="text" id="input-address-name"
                                                         class="form-control form-control-alternative"
                                                         [formControl]='address' placeholder="Name of the address">
-                                                    <ng-container *ngIf="address.invalid && address.dirty">
+                                                    <ng-container *ngIf="address.invalid && address.dirty || myform.submitted">
                                                         <div class="text-danger">
                                                             <span
                                                                 *ngIf="address.hasError('required')">{{errors.address.required}}</span>
@@ -47,7 +47,7 @@
                                                     <input type="tex" id="input-des"
                                                         class="form-control form-control-alternative"
                                                         [formControl]='description' placeholder="write something...">
-                                                    <ng-container *ngIf="description.invalid && description.dirty">
+                                                    <ng-container *ngIf="description.invalid && description.dirty || myform.submitted" >
                                                         <div class="text-danger">
                                                             <span
                                                                 *ngIf="description.hasError('required')">{{errors.description.required}}</span>
@@ -67,12 +67,12 @@
                                                     <select class="form-control form-control-alternative"
                                                         id="input-type-store"
                                                         [formControl]='city'>
-                                                        <option selected>Choice...</option>
+                                                        <option selected [value]="undefined">Choose...</option>
                                                         <option *ngFor="let dataCity of datasCity"
                                                             [value]="dataCity.cityId">
                                                             {{dataCity.name}}</option>
                                                     </select>
-                                                    <ng-container *ngIf="city.invalid && city.dirty">
+                                                    <ng-container *ngIf="city.invalid && city.dirty || myform.submitted">
                                                             <div class="text-danger">
                                                                 <span
                                                                     *ngIf="city.hasError('required')">{{errors.cityId.required}}</span>
@@ -90,13 +90,13 @@
                                                     <select class="form-control form-control-alternative"
                                                         id="input-type-store"
                                                         [formControl]='store'>
-                                                        <option  selected>Choice...</option>
+                                                        <option  selected  [value]="undefined">Choose...</option>
                                                         <option *ngFor="let dataStore of datasStore"
                                                             [value]="dataStore.storeId">
                                                             {{dataStore.name}}</option>
 
                                                     </select>
-                                                    <ng-container *ngIf="store.invalid && store.dirty">
+                                                    <ng-container *ngIf="store.invalid && store.dirty || myform.submitted">
                                                             <div class="text-danger">
                                                                 <span
                                                                     *ngIf="store.hasError('required')">{{errors.storeId.required}}</span>
@@ -202,12 +202,12 @@
                                 <div class="">
                                     <!-- edit -->
                                     <button class="btn  btn-info text-center"
-                                        (click)="open(classic2, 'modal_edit', 'sm')">
+                                        (click)="open(classic2, 'modal_edit', 'sm', data)">
                                         <i class="fas fa-pen"></i>
                                     </button>
                                     <!-- delete -->
                                     <button class="btn  btn-danger text-center"
-                                        (click)="open(classic3, 'modal_delete', '')">
+                                        (click)="open(classic3, 'modal_delete', '', data)">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </div>
@@ -233,7 +233,9 @@
                                                                     <input type="text" id="input-address-name"
                                                                         class="form-control form-control-alternative"
                                                                         placeholder="Name of the address"
-                                                                        [formControl]='address' [value]="data.address">
+                                                                        [formControl]='address'
+                                                                        
+                                                                         [value]="data.address">
                                                                     <ng-container
                                                                         *ngIf="address.invalid && address.dirty">
                                                                         <div class="text-danger">
@@ -283,7 +285,7 @@
 
                                                                         <option *ngFor="let dataCity of datasCity"
                                                                             [selected]="dataCity.cityId === data.cityId"
-                                                                            [value]="dataCity.name">
+                                                                            [value]="dataCity.cityId">
                                                                             {{dataCity.name}}</option>
                                                                     </select>
                                                                     <ng-container *ngIf="city.invalid && city.dirty">
@@ -308,7 +310,7 @@
                                                                         id="input-type-store" [formControl]='store'>
                                                                         <option *ngFor="let dataStore of datasStore"
                                                                             [selected]="dataStore.storeId === data.storeId"
-                                                                            [value]="dataStore.name">
+                                                                            [value]="dataStore.storeId">
                                                                             {{dataStore.name}}</option>
 
                                                                     </select>

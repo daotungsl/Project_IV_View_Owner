@@ -27,11 +27,11 @@ export const ERROR_ADDRESS ={
         maxLength: 'Only 100 character'
     },
     cityId: {
-        required : 'City must not empty',
+        required : 'City must be chosen',
         syntax: ''
     },
     storeId: {
-        required : 'Store Password must not empty',
+        required : 'Store must be chosen',
         syntax: ''
     },
 

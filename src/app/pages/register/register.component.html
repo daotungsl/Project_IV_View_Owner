@@ -40,7 +40,7 @@
             <!-- <small>Or sign up with credentials</small> -->
             <h3>Sign up with credentials</h3>
           </div>
-          <form role="form" [formGroup]="formRegister">
+          <form role="form" [formGroup]="formRegister" #myform="ngForm" >
             <div class="form-group" *ngIf="formRegister.get('phone') as phone">
               <div class="input-group input-group-alternative mb-3">
                 <div class="input-group-prepend">
@@ -49,7 +49,7 @@
                 <input class="form-control" placeholder="Phone number" [formControl]='phone' type="text">
 
               </div>
-              <ng-container *ngIf="phone.invalid && phone.dirty">
+              <ng-container *ngIf="phone.invalid && phone.dirty || myform.submitted">
                 <div class="text-danger">
                   <span *ngIf="phone.hasError('required')">{{errors.phone.required}}</span>
                   <span *ngIf="phone.hasError('pattern')">{{errors.phone.syntax}}</span>
@@ -65,7 +65,7 @@
                 <input class="form-control" placeholder="Email" [formControl]='email' type="email">
               </div>
               <div class="text-danger">
-                <ng-container *ngIf="email.invalid && email.dirty">
+                <ng-container *ngIf="email.invalid && email.dirty || myform.submitted">
                   <span *ngIf="email.hasError('required')">{{errors.email.required}}</span>
                   <span *ngIf="email.hasError('email')">{{errors.email.syntax}}</span>
                 </ng-container>
@@ -79,7 +79,7 @@
                 <input class="form-control" placeholder="Password" [formControl]='password' type="password">
               </div>
               <div class="text-danger">
-                <ng-container *ngIf="password.invalid && password.dirty">
+                <ng-container *ngIf="password.invalid && password.dirty || myform.submitted">
                   <span *ngIf="password.hasError('required')">{{errors.password.required}}</span>
                   <span *ngIf="password.hasError('pattern')">{{errors.password.syntax}}</span>
                 </ng-container>
@@ -93,7 +93,7 @@
                   <input class="form-control" placeholder="Confirm Password" [formControl]='confirmPassword' type="password">
                 </div>
                 <div class="text-danger">
-                  <ng-container *ngIf="formRegister.get('password').value != confirmPassword.value  ">
+                  <ng-container *ngIf="formRegister.get('password').value != confirmPassword.value || myform.submitted ">
                   <span *ngIf="confirmPassword.hasError('required')">{{errors.confirmPassword.required}}</span>
                   <span *ngIf="confirmPassword.hasError('mustMatch')">{{errors.confirmPassword.syntax}}</span>
                   </ng-container>
