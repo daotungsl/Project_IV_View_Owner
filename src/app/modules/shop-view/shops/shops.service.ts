@@ -11,11 +11,20 @@ import { map } from 'rxjs/operators';
 })
 export class ShopsService {
 
-  AddressFormControl = {
+  AddAressFormControl = {
     address: [null, [Validators.required, Validators.maxLength(100)]],
     description: [null, [Validators.required, Validators.maxLength(100)]],
     cityId: [null, [Validators.required]],
     storeId: [null, [Validators.required]]
+  }
+  
+  AddInfoFormControl = {
+    name: [null, [Validators.required, Validators.maxLength(100)]],
+    email: [null, [Validators.required, Validators.email]],
+    phone: [null, [Validators.required, Validators.pattern(/([+]84[9|1]|09|01[2|6|8|9])+([0-9]{8})\b/g)]],
+    accountId: [null, [Validators.required]],
+    typeStoreId: [null, [Validators.required]],
+    image: [null, [Validators.required]]
   }
   constructor(
     private http: HttpClient

@@ -106,7 +106,7 @@ export class ShopAddressListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.formAddAddress = this.fb.group(this.serviceAddress.AddressFormControl);
+    this.formAddAddress = this.fb.group(this.serviceAddress.AddAressFormControl);
   }
 
   doSubmit() {

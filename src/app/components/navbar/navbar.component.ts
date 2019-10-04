@@ -3,7 +3,6 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { CustomerService } from 'src/app/auth/customer.service';
-import { VoucherRoutes } from 'src/app/modules/vouchers/vouchers.routing';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -38,7 +37,7 @@ export class NavbarComponent implements OnInit {
 
   tryLogout() {
     this.customer.removeToken();
-    this.router.navigateByUrl('/dashboard')
+    this.router.navigateByUrl('/')
     console.log('click logout')
   }
   getTitle() {
@@ -55,7 +54,7 @@ export class NavbarComponent implements OnInit {
           return this.listTitles[item].title;
         }
       }
-    return 'Dashboard';
+    return '/';
   }
 
   goBack() {

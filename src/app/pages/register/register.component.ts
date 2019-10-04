@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   token: any;
   errors = ERROR_REGISTER;
   date = new Date();
+  account: any;
 
 
   constructor(
@@ -30,11 +31,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     if (this.customer.isLogged()) {
-      this.router.navigateByUrl("/dashboard");
+      this.router.navigateByUrl("/");
     }
     this.formRegister = this.fb.group(
       this.serviceRegister.registerFormControl,
-      { validator: MustMatch('password', 'confirmPassword') }
+      { validator: MustMatch('password', 'repassword') }
     );
   }
 
@@ -51,16 +52,36 @@ export class RegisterComponent implements OnInit {
     this.serviceRegister.tryRegister(this.formRegister.value)
       .subscribe({
         next: value => {
+          console.log(value)
+          // this.account = {
+          //   username: value.data.account.email,
+          //   password: value.data.account.email,
+          //   clientType: 'WEB'
+          // }
 
-          this.token = value;
-          this.customer.setToken(this.token);
-          this.router.navigateByUrl('/dashboard')
+          // this.serviceLogin.trylogin(this.account)
+          //   .subscribe({
+          //     next: value => {
+          //       console.log(value);
 
-          console.log('request success', localStorage.getItem('TOKEN'));
+          //       this.token = value.data.credential.accessToken;
+          //       // this.customer.setToken(this.token);
+          //       // this.router.navigateByUrl('/')
+          //       console.log(this.token);
+
+          //        console.log('request success', localStorage.getItem('TOKEN'));
+
+          //     },
+          //     error: err => {
+          //       console.log(err)
+
+          //     }
+          //   })
+
 
         },
         error: err => {
-          console.log(err)
+          console.log(err.error)
 
         }
       })

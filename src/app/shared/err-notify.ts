@@ -11,7 +11,7 @@ export const ERROR_REGISTER ={
         required : 'Password must not empty',
         syntax: 'Password must be at least 8 characters and must contain: 1 uppercase letter, 1 lowercase letter and 1 number'
     },
-    confirmPassword: {
+    repassword: {
         required : 'Confirm Password must not empty',
         syntax: 'Passwords must match'
     },

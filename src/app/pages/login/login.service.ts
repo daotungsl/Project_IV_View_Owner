@@ -14,22 +14,22 @@ export class LoginService {
 loginFormControl = {
   // name: [null, [Validators.required, Validators.maxLength(255)]],
   username: [null, [Validators.required]],
-  password: [null, [Validators.required]]
+  password: [null, [Validators.required]],
 }
   constructor(
     private http: HttpClient
   ) { }
 
   trylogin(value): Observable<IAccount>{
-    return this.http.post<{token: IAccount}>(
-      `${API_DOMAIN}login`,
+    return this.http.post<{data: IAccount}>(
+      `${API_DOMAIN}unauthentic/account/login`,
       value,
       {
         headers: HTTP_HEADER_LOGIN
       }
     ).pipe(
       map(res => {
-        return res.token;
+        return res.data;
       })
     );
   }

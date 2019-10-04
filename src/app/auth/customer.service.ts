@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import { IAccount } from '../interfaces/web-client/account-wc.interface';
 
 const TOKEN = 'TOKEN';
 
@@ -11,6 +12,11 @@ export class CustomerService {
     localStorage.setItem(TOKEN, token);
     console.log(localStorage.getItem(TOKEN));
   }
+
+  // setAccount(account: IAccount): void {
+  //   localStorage.setItem(TOKEN, token);
+  //   console.log(localStorage.getItem(TOKEN));
+  // }
 
   removeToken(): void{
     console.log("in remover token");

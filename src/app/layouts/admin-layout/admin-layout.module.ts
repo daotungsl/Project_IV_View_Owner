@@ -12,8 +12,8 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { VoucherModule } from 'src/app/modules/vouchers/vouchers.module';
-import { ShopsModule } from 'src/app/modules/shops/shops.module';
+import { VoucherModule } from 'src/app/modules/shop-view/vouchers/vouchers.module';
+import { ShopsModule } from 'src/app/modules/shop-view/shops/shops.module';
 
 @NgModule({
   imports: [

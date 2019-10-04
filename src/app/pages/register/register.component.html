@@ -85,17 +85,17 @@
                 </ng-container>
               </div>
             </div>
-            <div class="form-group" *ngIf="formRegister.get('confirmPassword') as confirmPassword">
+            <div class="form-group" *ngIf="formRegister.get('repassword') as repassword">
                 <div class="input-group input-group-alternative">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Confirm Password" [formControl]='confirmPassword' type="password">
+                  <input class="form-control" placeholder="Confirm Password" [formControl]='repassword' type="password">
                 </div>
                 <div class="text-danger">
-                  <ng-container *ngIf="formRegister.get('password').value != confirmPassword.value || myform.submitted ">
-                  <span *ngIf="confirmPassword.hasError('required')">{{errors.confirmPassword.required}}</span>
-                  <span *ngIf="confirmPassword.hasError('mustMatch')">{{errors.confirmPassword.syntax}}</span>
+                  <ng-container *ngIf="formRegister.get('password').value != repassword.value || myform.submitted ">
+                  <span *ngIf="repassword.hasError('required')">{{errors.repassword.required}}</span>
+                  <span *ngIf="repassword.hasError('mustMatch')">{{errors.repassword.syntax}}</span>
                   </ng-container>
                 </div>
               </div>

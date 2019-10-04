@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { IAccount } from 'src/app/interfaces/shop-owner/account-so.interface';
 import { HttpClient } from '@angular/common/http';
 import { API_DOMAIN, HTTP_HEADER, HTTP_HEADER_LOGIN } from 'src/app/shared/constant';
 import { map } from 'rxjs/operators';
+import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,23 +15,23 @@ export class RegisterService {
     email:[null, [Validators.required, Validators.email]],
     phone:[null, [Validators.required, Validators.pattern(/([+]84[9|1]|09|01[2|6|8|9])+([0-9]{8})\b/g)]],
     password:[null,[Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)]],
-    confirmPassword:[null, [Validators.required]],
+    repassword:[null, [Validators.required]],
   }
   constructor(
     private http: HttpClient
   ) { }
 
   tryRegister(value): Observable<IAccount>{
-  return this.http.post<{data: IAccount}>(
-    `${API_DOMAIN}so`,
+  return this.http.post<any>(
+    `${API_DOMAIN}unauthentic/account/register`,
     value,
     {
       headers: HTTP_HEADER_LOGIN
     }
   ).pipe(
     map(res => {
-      console.log(res);
-      return res.data;
+      console.log(res)
+      return res;
     })
   );
 }

@@ -6,15 +6,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { NeedAuthGuard } from './auth/auth.guard';
+import { WebLayoutComponent } from './layouts/web-layout/web-layout.component';
 
 const routes: Routes =[
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'home',
     pathMatch: 'full',
 
-  }, {
+  },{
     path: '',
+    component: WebLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/web-layout/web-layout.module#WebLayoutModule',
+      }
+    ]
+  }, {
+    path: 'shop',
     component: AdminLayoutComponent,
     canActivate: [NeedAuthGuard],
     children: [
@@ -36,7 +46,7 @@ const routes: Routes =[
   
    {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: 'home'
   }
 ];
 
