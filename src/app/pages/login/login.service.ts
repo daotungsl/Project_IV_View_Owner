@@ -21,7 +21,7 @@ loginFormControl = {
   ) { }
 
   trylogin(value): Observable<IAccount>{
-    return this.http.post<{data: IAccount}>(
+    return this.http.post<IAccount>(
       `${API_DOMAIN}unauthentic/account/login`,
       value,
       {
@@ -29,7 +29,7 @@ loginFormControl = {
       }
     ).pipe(
       map(res => {
-        return res.data;
+        return res;
       })
     );
   }

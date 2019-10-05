@@ -1,3 +1,4 @@
+import { IAccount } from "../interfaces/web-client/account-wc.interface";
 
 export const API_DOMAIN = 'http://localhost:8080/';
 export const API_IMAGE = 'https://api.cloudinary.com/v1_1/${smileup}/upload';

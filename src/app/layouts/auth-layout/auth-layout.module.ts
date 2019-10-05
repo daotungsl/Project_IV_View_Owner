@@ -18,7 +18,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ]
 })
 export class AuthLayoutModule { }

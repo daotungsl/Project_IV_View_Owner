@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IAddressSO } from 'src/app/interfaces/shop-owner/address-so.interface';
 import { API_DOMAIN, HTTP_HEADER } from 'src/app/shared/constant';
 import { map } from 'rxjs/operators';
+import { IInfoSo } from 'src/app/interfaces/shop-owner/Info-so.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class ShopsService {
     phone: [null, [Validators.required, Validators.pattern(/([+]84[9|1]|09|01[2|6|8|9])+([0-9]{8})\b/g)]],
     accountId: [null, [Validators.required]],
     typeStoreId: [null, [Validators.required]],
-    image: [null, [Validators.required]]
+    image: [null, []]
   }
   constructor(
     private http: HttpClient
@@ -32,7 +33,21 @@ export class ShopsService {
 
   tryAddAddress(value): Observable<IAddressSO>{
     return this.http.post<{data: IAddressSO}>(
-      `${API_DOMAIN}so/store/address`,
+      `${API_DOMAIN}api/so/store/address`,
+    value,
+    {
+      headers: HTTP_HEADER
+    }
+  ).pipe(
+    map(res => {
+      console.log(res);
+      return res.data;
+    })
+  );
+  }
+  tryAddShopInfo(value): Observable<IInfoSo>{
+    return this.http.post<{data: IInfoSo}>(
+      `${API_DOMAIN}api/so/store/home`,
     value,
     {
       headers: HTTP_HEADER

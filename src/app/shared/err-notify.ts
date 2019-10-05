@@ -36,3 +36,26 @@ export const ERROR_ADDRESS ={
     },
 
 }
+export const ERROR_SHOP_INFO ={
+    name: {
+        required : 'Account name must not empty',
+        maxLength: 'Only 100 character'
+    },
+    email: {
+        required : 'Email must not empty',
+        syntax: 'Email must like : abc@example.com'
+    },
+    phone: {
+        required : 'Phone number must not empty',
+        syntax: 'Phone number must like : +84123456789, 0123456789,.....'
+    },
+    image: {
+        required : 'Image must not empty',
+        syntax: ''
+    },
+    typeStoreId: {
+        required : 'TypeStore must not empty',
+        syntax: ''
+    },
+
+}

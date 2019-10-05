@@ -9,6 +9,7 @@ import { ShopComponent } from './shop/shop.component';
 import { ShopAddressAddComponent } from './shop-address-add/shop-address-add.component';
 import { ShopAddressListComponent } from './shop-address-list/shop-address-list.component';
 import { ShopInfoComponent } from './shop-info/shop-info.component';
+import { ShopAddComponent } from './shop-add/shop-add.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ShopInfoComponent } from './shop-info/shop-info.component';
     ShopComponent,
     ShopAddressAddComponent,
     ShopAddressListComponent,
-    ShopInfoComponent
+    ShopInfoComponent,
+    ShopAddComponent
   ]
 })
 

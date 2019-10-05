@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { LoginService } from './login.service';
 import { HTTP_HEADER } from 'src/app/shared/constant';
 import { CustomerService } from 'src/app/auth/customer.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
 import { Md5 } from 'ts-md5';
 
@@ -17,11 +17,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   form: FormGroup;
   token: any;
   passEnd: any;
+  redirectUrl: any;
   constructor(
     private fb: FormBuilder,
     private service: LoginService,
     private customer: CustomerService,
     private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -30,6 +32,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl("/shop/dashboard");
     }
     this.form = this.fb.group(this.service.loginFormControl);
+    this.route.queryParamMap.subscribe(params => {
+       this.redirectUrl = params.get("redirectUrl")
+    })
 
   }
   ngOnDestroy() {
@@ -59,12 +64,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe({
         next: value => {
           console.log(value)
-          this.token = value;
+          this.customer.setAccount(value)
+          this.token = value.data.credential.accessToken;
           this.customer.setToken(this.token);
+          this.router.navigateByUrl(this.redirectUrl)
 
-          this.router.navigateByUrl('/')
-
-          console.log('request success', localStorage.getItem('TOKEN'));
+          // console.log('request success', localStorage.getItem('TOKEN'));
 
         },
         error: err => {
