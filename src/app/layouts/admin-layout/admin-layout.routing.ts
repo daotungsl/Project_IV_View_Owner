@@ -13,8 +13,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: '', redirectTo: 'dashboard', pathMatch: 'prefix'},
     { path: 'dashboard', component: DashboardComponent, canActivate:[ShopAuthGuard] },
     { path: 'tables', component: TablesComponent },
-    {
-        path: 'voucher',
+    {   path: 'voucher',
         component: VoucherComponent,
         canActivate:[ShopAuthGuard],
         children: [
@@ -24,8 +23,7 @@ export const AdminLayoutRoutes: Routes = [
             }
         ]
     },
-    {
-        path: 'info',
+    {   path: 'info',
         component: ShopComponent,
         canActivate:[ShopAuthGuard],
         children: [

@@ -10,6 +10,7 @@ import { VoucherRoutes } from './vouchers.routing';
 import { VoucherAddComponent } from './voucher-add/voucher-add.component';
 import { VoucherListComponent } from './voucher-list/voucher-list.component';
 import { VoucherComponent } from './voucher/voucher.component';
+import { CardVoucherComponent } from './card-voucher.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -22,7 +23,8 @@ import { VoucherComponent } from './voucher/voucher.component';
   declarations: [
     VoucherComponent,
     VoucherAddComponent,
-    VoucherListComponent
+    VoucherListComponent,
+    CardVoucherComponent
 
   ]
 })

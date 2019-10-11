@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { LoginService } from './login.service';
-import { HTTP_HEADER } from 'src/app/shared/constant';
 import { CustomerService } from 'src/app/auth/customer.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
 import { Md5 } from 'ts-md5';
+import { ShopsService } from 'src/app/modules/shop-view/shops/shops.service';
+import { IInfoSo } from 'src/app/interfaces/shop-owner/Info-so.interface';
 
 
 @Component({
@@ -18,22 +18,23 @@ export class LoginComponent implements OnInit, OnDestroy {
   token: any;
   passEnd: any;
   redirectUrl: any;
+
   constructor(
     private fb: FormBuilder,
     private service: LoginService,
     private customer: CustomerService,
+    private shopService: ShopsService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-
     if (this.customer.isLogged()) {
       this.router.navigateByUrl("/shop/dashboard");
     }
     this.form = this.fb.group(this.service.loginFormControl);
     this.route.queryParamMap.subscribe(params => {
-       this.redirectUrl = params.get("redirectUrl")
+      this.redirectUrl = params.get("redirectUrl")
     })
 
   }
@@ -64,9 +65,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe({
         next: value => {
           console.log(value)
-          this.customer.setAccount(value)
+          this.customer.setAccount(value);
           this.token = value.data.credential.accessToken;
           this.customer.setToken(this.token);
+          this.getInfoShop( value.data.account.storeId );
+
           this.router.navigateByUrl(this.redirectUrl)
 
           // console.log('request success', localStorage.getItem('TOKEN'));
@@ -77,13 +80,20 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.form.get('password').setValue(null);
           console.log(this.form.value)
 
-          // this.token = err;
-          //   this.customer.setToken(this.token);
-          //   this.router.navigateByUrl('/shop/dashboard')
-
-          //   console.log('request success', localStorage.getItem('TOKEN'));
         }
       })
   }
-}
 
+  getInfoShop(value) {
+    this.shopService.getInfoStore(value)
+      .subscribe({
+        next: value => {
+          this.customer.setStore(value)
+        },
+        error: err => {
+          console.log(err)
+        }
+      })
+
+  }
+}

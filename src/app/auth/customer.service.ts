@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import { LoginComponent } from '../pages/login/login.component';
 import { IAccount } from '../interfaces/web-client/account-wc.interface';
+import { IInfoSo } from '../interfaces/shop-owner/Info-so.interface';
 
 const TOKEN = 'TOKEN';
 const ACCOUNT = 'Account';
+const STORE = 'Store';
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +18,41 @@ export class CustomerService {
   }
 
   setAccount(account: IAccount): void {
+    if(localStorage.getItem(ACCOUNT)){
+      this.removeAccount();
+    }
     localStorage.setItem(ACCOUNT, JSON.stringify(account));
     console.log(localStorage.getItem(ACCOUNT));
-    console.log(JSON.parse(localStorage.getItem(ACCOUNT)).data.account.storeId);
+  }
+  getAccount(): IAccount{
+    return JSON.parse(localStorage.getItem(ACCOUNT));
+   }
+ 
+   removeAccount(): void{
+     localStorage.removeItem(ACCOUNT);
+     console.log(localStorage.getItem(ACCOUNT));
+ 
+   }
+
+  setStore(store: IInfoSo): void {
+    if(localStorage.getItem(STORE)){
+      this.removeStore();
+    }
+    localStorage.setItem(STORE, JSON.stringify(store));
+    console.log(localStorage.getItem(STORE));
+  }
+  getStore(): IInfoSo{
+    return JSON.parse(localStorage.getItem(STORE));
+   }
+  removeStore(): void{
+    localStorage.removeItem(STORE);
+    console.log(localStorage.getItem(STORE));
+
   }
 
-  getAccount(): IAccount{
-   return JSON.parse(localStorage.getItem(ACCOUNT));
-  }
+  
 
   removeToken(): void{
-    console.log("in remover token");
     localStorage.removeItem(TOKEN);
     console.log(localStorage.getItem(TOKEN));
 

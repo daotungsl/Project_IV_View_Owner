@@ -1,3 +1,32 @@
-<p>
-  header-web works!
-</p>
+<div class="container new-feature-search-bar">
+
+<div class="logo">
+  <a href="/" class="img-logo">
+    <div>
+      <img src="/assets/img/icons/android-chrome-192x192.png" alt="">
+    </div>
+    <div>
+      <h3>Deal Hunter</h3>
+    </div>
+
+  </a>
+
+</div>
+<div class="search-box">
+  <span><i class="fas fa-search"></i></span>
+  <span class="search-box-label mr-2 ml-1">Search</span>
+  <div class="results-box">
+
+    <input type="text" class="search-input" autocomplete="off" placeholder="khuyến mãi, thương hiệu, sản phẩm...">
+  </div>
+  <span><i class="fas fa-map-marker-alt"></i></span>
+  <span class="search-box-label mr-2 ml-1"> In </span>
+  <div>
+    <select name="location" id="home-page-choose-location" class="form-control choose-location">
+      <option *ngFor="let dataCity of dataCities" [value]="dataCity.id">
+        {{dataCity.name}}</option>
+    </select>
+  </div>
+
+</div>
+</div>

@@ -17,10 +17,6 @@ export class NavbarComponent implements OnInit {
   public listTitles: any[];
   public listTitlesVoucher: any[];
   public location: Location;
-  name:{
-    user: any;
-    shop: any;
-  }
   username:any;
   shopname:any;
 
@@ -49,16 +45,16 @@ export class NavbarComponent implements OnInit {
 
   tryLogout() {
     this.customer.removeToken();
+    this.customer.removeAccount();
+    this.customer.removeStore();
     this.router.navigateByUrl('/')
-    console.log('click logout')
   }
   getTitle() {
     var titlee = this.location.prepareExternalUrl(this.location.path());
-    console.log(titlee);
     if (titlee.charAt(0) === '#') {
       titlee = titlee.slice(1);
     }
-    if (titlee.indexOf("voucher") == 1) {
+    if (titlee.indexOf("voucher") == 6) {
       return "Voucher"
     }
     for (var item = 0; item < this.listTitles.length; item++) {

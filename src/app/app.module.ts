@@ -22,10 +22,11 @@ import { WebLayoutModule } from './layouts/web-layout/web-layout.module';
     FormsModule,
     HttpClientModule,
     ComponentsModule,
-    WebLayoutModule,
     NgbModule,
     RouterModule,
     AppRoutingModule,
+    WebLayoutModule,
+
     SharedModule
   ],
   declarations: [

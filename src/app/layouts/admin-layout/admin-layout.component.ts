@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/auth/customer.service';
 import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
+import { IInfoSo } from 'src/app/interfaces/shop-owner/Info-so.interface';
 
 @Component({
   selector: 'app-admin-layout',
@@ -9,6 +10,7 @@ import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
 })
 export class AdminLayoutComponent implements OnInit {
 public ACCOUNT_INFO : IAccount;
+public SHOP_INFO : IInfoSo;
 public NAME_USER;
 public NAME_SHOP;
   constructor(
@@ -24,9 +26,10 @@ public NAME_SHOP;
     this.NAME_USER=this.ACCOUNT_INFO.data.account.phone;
 
    }
-   this.NAME_SHOP = this.ACCOUNT_INFO.data.account.email;
+   this.SHOP_INFO = this.customer.getStore();
+   this.NAME_SHOP = this.SHOP_INFO.data.name;
    console.log(this.ACCOUNT_INFO)
   }
 
-
+ 
 }

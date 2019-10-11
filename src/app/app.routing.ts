@@ -11,11 +11,6 @@ import { WebLayoutComponent } from './layouts/web-layout/web-layout.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/',
-    pathMatch: 'full',
-
-  }, {
-    path: '',
     component: WebLayoutComponent,
     children: [
       {
@@ -53,7 +48,8 @@ const routes: Routes = [
 
   {
     path: '**',
-    redirectTo: '/'
+    redirectTo: '',
+    pathMatch: 'full'
   }
 ];
 

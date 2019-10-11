@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { API_DOMAIN, HTTP_HEADER, HTTP_HEADER_LOGIN } from 'src/app/shared/constant';
 import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
+import { IInfoSo } from 'src/app/interfaces/shop-owner/Info-so.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -35,17 +36,5 @@ loginFormControl = {
   }
   
 
-  getInfo(){
-    console.log("in service")
-    return this.http.get(
-      `${API_DOMAIN}api/values`,
-      {
-        headers: HTTP_HEADER
-      }
-    ).pipe(
-      map(res => {
-        return res;
-      })
-    );
-  }
+
 }

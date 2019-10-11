@@ -7,7 +7,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { HeaderWebComponent } from './header-web/header-web.component';
 import { BodyWebComponent } from './body-web/body-web.component';
 import { FooterWebComponent } from './footer-web/footer-web.component';
-import { CategoryPageModule } from 'src/app/modules/user-view/categories-page/category-page.module';
+import { UserViewModule } from 'src/app/modules/user-view/user-view.module';
 
 @NgModule({
 
@@ -15,8 +15,8 @@ import { CategoryPageModule } from 'src/app/modules/user-view/categories-page/ca
     SharedModule,
     RouterModule.forChild(WebLayoutRoutes),
     NgbModule,
+    UserViewModule,
     ClipboardModule,
-    CategoryPageModule
 
 
   ],

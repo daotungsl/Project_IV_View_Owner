@@ -21,7 +21,7 @@ export class RegisterService {
     private http: HttpClient
   ) { }
 
-  tryRegister(value): Observable<IAccount>{
+  tryRegister(value): Observable<any>{
   return this.http.post<any>(
     `${API_DOMAIN}unauthentic/account/register`,
     value,

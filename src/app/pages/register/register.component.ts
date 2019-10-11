@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ERROR_REGISTER } from 'src/app/shared/err-notify';
 import { LoginService } from '../login/login.service';
 import { MustMatch } from './mustMatch.component';
+import { Md5 } from 'ts-md5';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,8 @@ export class RegisterComponent implements OnInit {
   errors = ERROR_REGISTER;
   date = new Date();
   account: any;
+  passEnd: any;
+
 
 
   constructor(
@@ -53,30 +56,32 @@ export class RegisterComponent implements OnInit {
       .subscribe({
         next: value => {
           console.log(value)
-          // this.account = {
-          //   username: value.data.account.email,
-          //   password: value.data.account.email,
-          //   clientType: 'WEB'
-          // }
+          const md5 = new Md5();
 
-          // this.serviceLogin.trylogin(this.account)
-          //   .subscribe({
-          //     next: value => {
-          //       console.log(value);
+          const passHash = md5.appendStr(value.data.password).end();
+          this.passEnd = passHash;
+          this.account = {
+            username: value.data.username,
+            password: this.passEnd.toUpperCase(),
+          }
 
-          //       this.token = value.data.credential.accessToken;
-          //       // this.customer.setToken(this.token);
-          //       // this.router.navigateByUrl('/')
-          //       console.log(this.token);
+          this.serviceLogin.trylogin(this.account)
+            .subscribe({
+              next: value => {
+                console.log(value);
+                this.customer.setAccount(value)
+                this.token = value.data.credential.accessToken;
+                this.customer.setToken(this.token);
+                this.router.navigateByUrl('/')
 
-          //        console.log('request success', localStorage.getItem('TOKEN'));
+                 console.log('request success', localStorage.getItem('TOKEN'));
 
-          //     },
-          //     error: err => {
-          //       console.log(err)
+              },
+              error: err => {
+                console.log(err)
 
-          //     }
-          //   })
+              }
+            })
 
 
         },

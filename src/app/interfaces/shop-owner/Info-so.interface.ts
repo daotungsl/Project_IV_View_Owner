@@ -1,12 +1,19 @@
 export interface IInfoSo {
-    name: String,
-    email: String,
-    phone: String,
-    image: String,
-    created: number,
-    updated: number,
-    status: number,
-    accountId: number,
-    typeStoreId: number
+
+    data: {
+        id: number,
+        name: String,
+        email: String,
+        phone: String,
+        image: String,
+        created: String,
+        updated: String,
+        status: String,
+        accountId: number,
+        typeStore: String,
+        storeAddresses: []
+    },
+    message: String,
+    status: number
 
 }

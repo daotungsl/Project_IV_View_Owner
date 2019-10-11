@@ -1,0 +1,37 @@
+<div class="home-page">
+  <div class="home-page_block">
+    <div class="home-page_block_left">
+      <div class="category-list-menu">
+
+        <!-- Navigation -->
+        <ul class="navbar-nav">
+          <li *ngFor="let data of dataCategories" class=" nav-item">
+            <a routerLinkActive="active" [routerLink]="['/category']" class="nav-link">
+              <!-- <i class="ni {{menuItem.icon}}"></i> -->
+              {{data.name}}
+            </a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+    <div class="home-page_block_right">
+      <div class="top-feature-heading-homepage">
+          
+        <h2>MỚI &amp; HOT</h2>
+          <div class="border"></div>
+      </div>
+      <div class="row">
+<div class="col-8 test_boder">
+aaa
+</div>
+<div class="col-4 test_boder">
+aaa
+</div>
+      </div>
+      <div>
+
+      </div>
+    </div>
+  </div>
+</div>
