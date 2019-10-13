@@ -1,30 +1,43 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule, RouterLink } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { NeedAuthGuard } from './auth/auth.guard';
+import { WebLayoutComponent } from './layouts/web-layout/web-layout.component';
 
-const routes: Routes =[
+const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-
-  }, {
-    path: '',
-    component: AdminLayoutComponent,
-    canActivate: [NeedAuthGuard],
+    component: WebLayoutComponent,
     children: [
       {
         path: '',
+        loadChildren: './layouts/web-layout/web-layout.module#WebLayoutModule',
+      }
+    ]
+  }, 
+  {
+    path: 'shop',
+    component: AdminLayoutComponent,
+    canActivate: [NeedAuthGuard],
+    // data: {
+    //   role: RouterLink.CanFixABC
+    // },
+    children: [
+      {
+        path: 'controller',
         loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule',
+        data: {
+          title: 'Day la shop',
+          role: 'Xem duoc list'
+        }
       }
     ]
   }, {
-    path: '',
+    path: 'user',
     component: AuthLayoutComponent,
     children: [
       {
@@ -33,10 +46,11 @@ const routes: Routes =[
       }
     ]
   },
-  
-   {
+
+  {
     path: '**',
-    redirectTo: 'dashboard'
+    redirectTo: '',
+    pathMatch: 'full'
   }
 ];
 
@@ -44,7 +58,7 @@ const routes: Routes =[
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes,{
+    RouterModule.forRoot(routes, {
       useHash: false
     })
   ],

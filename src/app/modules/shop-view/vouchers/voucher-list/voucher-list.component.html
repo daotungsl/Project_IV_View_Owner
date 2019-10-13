@@ -1,0 +1,49 @@
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h2 class="mb-0 d-inline-block">Voucher List</h2>
+          <div class="col-lg-3 col-md-6 d-inline-block float-right">
+            <button class="btn btn-icon btn-3 btn-primary" type="button" routerLinkActive="active"
+              [routerLink]="['/shop/controller/voucher/create']">
+              <!-- <button class="btn btn-icon btn-3 btn-primary" type="button"  (click)="onShowForm();"> -->
+              <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+              <span class="btn-inner--text">Add New Voucher</span>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <ng-container *ngFor="let data of datas">
+            <app-card-voucher>
+              <a class="card-image" routerLink=""><img width="400" height="270"  src="{{ data.imgage }}"> </a>
+              <a class="card-title" routerLink="">
+                <h3>{{data.title}}</h3>
+              </a>
+
+              <p class="card-description">{{data.des}}</p>
+
+              <div *ngIf="data.status == 1">
+                <span class="card-status badge badge-dot mr-4">
+                    <i class="bg-success"></i> Online
+                </span>
+            </div>
+              <span class="card-author"><i class="far fa-user"></i> {{data.author}}</span>
+
+              <span *ngIf="data.updated == null" class="card-time-stamp"><i class="far fa-clock"></i> {{data.created}} - ...</span>
+              <span *ngIf="data.updated != null"class="card-time-stamp"><i class="far fa-clock"></i> {{data.created}} - {{data.updated}}</span>
+             
+              <span *ngIf="data.status == 0" class="card-status badge badge-dot mr-4"><i class="bg-danger"></i> Disbaled</span>
+              <span *ngIf="data.status == 1" class="card-status badge badge-dot mr-4"><i class="bg-success"></i> Online</span>
+              <span *ngIf="data.status == 2" class="card-status badge badge-dot mr-4"><i class="bg-warning"></i> Exprires</span>
+            </app-card-voucher>
+          </ng-container>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../../pages/login/login.component';
 import { RegisterComponent } from '../../pages/register/register.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RegisterStoreComponent } from 'src/app/pages/register-store/register-store.component';
 @NgModule({
   imports: [
     // CommonModule,
@@ -18,7 +19,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    RegisterStoreComponent
   ]
 })
 export class AuthLayoutModule { }

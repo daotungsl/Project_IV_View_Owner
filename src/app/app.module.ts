@@ -13,6 +13,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { SharedModule } from './shared/shared.module';
+import { WebLayoutComponent } from './layouts/web-layout/web-layout.component';
+import { WebLayoutModule } from './layouts/web-layout/web-layout.module';
 
 @NgModule({
   imports: [
@@ -23,12 +25,15 @@ import { SharedModule } from './shared/shared.module';
     NgbModule,
     RouterModule,
     AppRoutingModule,
+    WebLayoutModule,
+
     SharedModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+    WebLayoutComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,16 +1,15 @@
-import {CanActivate, Router} from '@angular/router';
+import {CanActivate, Router, CanActivateChild} from '@angular/router';
 import {Injectable} from '@angular/core';
 import {CustomerService} from './customer.service';
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router/src/router_state';
 
 @Injectable()
-export class NeedAuthGuard implements CanActivate {
+export class NeedAuthGuard implements CanActivate, CanActivateChild {
 
   constructor(private customerService: CustomerService, private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-
     const redirectUrl = route['_routerState']['url'];
 
     if (this.customerService.isLogged()) {
@@ -19,7 +18,47 @@ export class NeedAuthGuard implements CanActivate {
 
     this.router.navigateByUrl(
       this.router.createUrlTree(
-        ['/login'], {
+        ['/user/login'], {
+          queryParams: {
+            redirectUrl
+          }
+        }
+      )
+    );
+
+    return false;
+  }
+  canActivateShop(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const redirectUrl = route['_routerState']['url'];
+
+    if(this.customerService.isShop() != -1){
+      return true;
+    }
+    this.router.navigateByUrl(
+      this.router.createUrlTree(
+        ['/shop/controller/add'], {
+          queryParams: {
+            redirectUrl
+          }
+        }
+      )
+    );
+
+    return false;
+  }
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    route.data;
+
+    const redirectUrl = route['_routerState']['url'];
+
+    if (this.customerService.isShop() != -1) {
+      console.log(this.customerService.isShop())
+      return true;
+    }
+
+    this.router.navigateByUrl(
+      this.router.createUrlTree(
+        ['/shop/controller/add'], {
           queryParams: {
             redirectUrl
           }
