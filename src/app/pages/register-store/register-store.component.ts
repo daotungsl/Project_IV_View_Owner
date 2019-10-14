@@ -35,9 +35,9 @@ export class RegisterStoreComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // if (this.customer.isLogged()) {
-    //   this.router.navigateByUrl("/shop/controller/dashboard");
-    // }
+    if (this.customer.isLogged()) {
+      this.router.navigateByUrl("/shop/controller/dashboard");
+    }
     this.formRegister = this.fb.group(
       this.serviceRegister.registerStoreFormControl,
       { validator: MustMatch('password', 'repassword') }
@@ -71,10 +71,10 @@ export class RegisterStoreComponent implements OnInit {
             .subscribe({
               next: value => {
                 console.log(value);
-                this.customer.setAccount(value)
+                this.customer.setAccountStore(value)
                 this.token = value.data.credential.accessToken;
-                this.customer.setToken(this.token);
-                this.router.navigateByUrl('/')
+                this.customer.setTokenStore(this.token);
+                this.router.navigateByUrl('/shop/controller')
 
                  console.log('request success', localStorage.getItem('TOKEN'));
 

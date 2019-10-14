@@ -16,14 +16,15 @@ export class VouchersService {
     name: [null, [Validators.required, Validators.maxLength(200)]],
     description: [null, [Validators.required, Validators.maxLength(200)]],
     image: [null, [Validators.required, Validators.maxLength(200)]],
-    codeSale: [null, [Validators.required, Validators.maxLength(200)]],
     percent: [null, [Validators.required]],
     maxSlot: [null, [Validators.required]],
     expried: [null, [Validators.required]],
+    startDay: [null, [Validators.required]],
+    expiredDay: [null, [Validators.required]],
     startTime: [null, [Validators.required]],
     endTime: [null, [Validators.required]],
     dayWeek: [null, [Validators.required]],
-    shopId: [null, [Validators.required]],
+    storeId: [null, [Validators.required]],
     typeVoucherId: [null, [Validators.required]],
   }
   constructor(
@@ -48,7 +49,17 @@ export class VouchersService {
 
   getAllTypeVoucher(){
     return this.http.get<ITypeVoucherSO>(
-      `${API_DOMAIN}unauthentic/typeVouchers/typeVoucher`
+      `${API_DOMAIN}unauthentic/type-vouchers`
+  ).pipe(
+    map(res => {
+      console.log(res);
+      return res;
+    })
+  );
+  }
+  getAllVoucherByStore(value){
+    return this.http.get<IVoucherSO>(
+      `${API_DOMAIN}unauthentic/stores/store/${value}/vouchers`
   ).pipe(
     map(res => {
       console.log(res);

@@ -55,7 +55,7 @@ export class ShopInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.accountInfo = this.admin.ACCOUNT_INFO
+    this.accountInfo = this.admin.ACCOUNT_SHOP_INFO
     this.formShopInfo = this.fb.group(this.shopService.AddInfoFormControl);
 
     this.formShopInfo

@@ -28,9 +28,11 @@ export class HeaderWebComponent implements OnInit {
     if (this.checkLogin) {
       if(this.customer.getAccount().data.account.fullName){
         this.accountUser = this.customer.getAccount().data.account.fullName;
-      }else{
+      }else if(this.customer.getAccount().data.account.email){
         this.accountUser = this.customer.getAccount().data.account.email;
 
+      }else{
+        this.accountUser = null;
       }
       
     }

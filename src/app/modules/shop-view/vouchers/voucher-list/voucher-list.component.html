@@ -15,24 +15,24 @@
           </div>
         </div>
         <div class="row">
-          <ng-container *ngFor="let data of datas">
+          <ng-container *ngFor="let data of datasVoucher">
             <app-card-voucher>
-              <a class="card-image" routerLink=""><img width="400" height="270"  src="{{ data.imgage }}"> </a>
+              <a class="card-image" routerLink=""><img width="300" height="270"  src="{{ data.image }}"> </a>
               <a class="card-title" routerLink="">
-                <h3>{{data.title}}</h3>
+                <h3 class="under-cut">{{data.name}}</h3>
               </a>
 
-              <p class="card-description">{{data.des}}</p>
+              <p class="card-description under-cut">{{data.description}}</p>
 
               <div *ngIf="data.status == 1">
                 <span class="card-status badge badge-dot mr-4">
                     <i class="bg-success"></i> Online
                 </span>
             </div>
-              <span class="card-author"><i class="far fa-user"></i> {{data.author}}</span>
+              <span class="card-author"><i class="far fa-user"></i> {{data.store}}</span>
 
-              <span *ngIf="data.updated == null" class="card-time-stamp"><i class="far fa-clock"></i> {{data.created}} - ...</span>
-              <span *ngIf="data.updated != null"class="card-time-stamp"><i class="far fa-clock"></i> {{data.created}} - {{data.updated}}</span>
+              <span *ngIf="data.updated == null" class="card-time-stamp"><i class="far fa-clock"></i> {{data.created | date: 'dd/MM/yyy'}} - ...</span>
+              <span *ngIf="data.updated != null"class="card-time-stamp"><i class="far fa-clock"></i> {{data.created | date: 'dd/MM/yyy'}} - {{data.updated | date: 'dd/MM/yyy'}}</span>
              
               <span *ngIf="data.status == 0" class="card-status badge badge-dot mr-4"><i class="bg-danger"></i> Disbaled</span>
               <span *ngIf="data.status == 1" class="card-status badge badge-dot mr-4"><i class="bg-success"></i> Online</span>

@@ -96,7 +96,7 @@
               >
               <option selected disabled="disabled" [value]="null">Type Store</option>
               <option *ngFor="let dataTypeStore of datasTypeStore"
-              [value]="dataTypeStore.id">
+              [ngValue]="dataTypeStore.id">
               {{dataTypeStore.name}}</option>
               </select>
               <div>
@@ -108,18 +108,74 @@
                 </ng-container>
               </div>
             </div>
-            <div class="form-group"  *ngIf="formAddShop.get('image') as image">
+            <div class="form-group" *ngIf="formAddShop.get('address') as address">
+              <div class="input-group input-group-alternative mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                  </div>
+                  <input class="form-control" placeholder="Store address" [formControl]='address' type="text">
+                </div>
+            <div>
+              <ng-container *ngIf="address.invalid && address.dirty || myform.submitted">
+                <div class="text-danger">
+                  <span *ngIf="address.hasError('required')">{{errors.name.required}}</span>
+                </div>
+          
+              </ng-container>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="formAddShop.get('cityId') as cityId">
+            <select class="form-control form-control-alternative" 
+            id="input-type-store"
+            [formControl]='cityId'
+            
+            >
+            <option selected disabled="disabled" [value]="null">City</option>
+            <option *ngFor="let data of dataCities"
+            [ngValue]="data.id">
+            {{data.name}}</option>
+            </select>
+            <div>
+              <ng-container *ngIf="cityId.invalid && cityId.dirty || myform.submitted">
+                <div class="text-danger">
+                  <span *ngIf="cityId.hasError('required')">{{errors.typeStoreId.required}}</span>
+                </div>
+  
+              </ng-container>
+            </div>
+          </div>
+            <div class="form-group"  *ngIf="formAddShop.get('images') as images">
               <input type="file" id="input-image" class="form-control form-control-alternative" 
-              [formControl]='image'>
+              [formControl]='images'
+              (change)="handleFileInput($event.target.files)">
               <div>
-                <ng-container *ngIf="image.invalid && image.dirty || myform.submitted">
+                <ng-container *ngIf="images.invalid && images.dirty || myform.submitted">
                   <div class="text-danger">
-                    <span *ngIf="image.hasError('required')">{{errors.image.required}}</span>
+                    <span *ngIf="images.hasError('required')">{{errors.image.required}}</span>
                   </div>
     
                 </ng-container>
               </div>
             </div>
+
+            
+            <div class="form-group" *ngIf="formAddShop.get('description') as description">
+              <div class="input-group input-group-alternative mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+                  </div>
+                  <input class="form-control" placeholder="Store description" [formControl]='description' type="text">
+                </div>
+            <div>
+              <ng-container *ngIf="description.invalid && description.dirty || myform.submitted">
+                <div class="text-danger">
+                  <span *ngIf="description.hasError('required')">{{errors.name.required}}</span>
+                </div>
+          
+              </ng-container>
+            </div>
+          </div>
+
             <div class="row my-4">
               <div class="col-12">
                 <div class="custom-control custom-control-alternative custom-checkbox">
@@ -130,6 +186,7 @@
                 </div>
               </div>
             </div>
+
             <div class="text-center">
               <button type="submit" (click)="doSubmit()" [disabled]="!isChecked" class="btn btn-primary mt-4">Create shop</button>
             </div>

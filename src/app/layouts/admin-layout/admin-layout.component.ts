@@ -9,7 +9,7 @@ import { IInfoSo } from 'src/app/interfaces/shop-owner/Info-so.interface';
   styleUrls: ['./admin-layout.component.scss']
 })
 export class AdminLayoutComponent implements OnInit {
-public ACCOUNT_INFO : IAccount;
+public ACCOUNT_SHOP_INFO : IAccount;
 public SHOP_INFO : IInfoSo;
 public NAME_USER;
 public NAME_SHOP;
@@ -19,25 +19,17 @@ public NAME_SHOP;
   ) { }
 
   ngOnInit() {
-   this.ACCOUNT_INFO = this.customer.getAccount();
-   if(this.ACCOUNT_INFO.data.account.fullName){
-     this.NAME_USER=this.ACCOUNT_INFO.data.account.fullName;
+   this.ACCOUNT_SHOP_INFO = this.customer.getAccountStore();
+   if(this.ACCOUNT_SHOP_INFO.data.account.fullName){
+     this.NAME_USER=this.ACCOUNT_SHOP_INFO.data.account.fullName;
    }else{
-    this.NAME_USER=this.ACCOUNT_INFO.data.account.phone;
+    this.NAME_USER=this.ACCOUNT_SHOP_INFO.data.account.phone;
 
    }
-   this.SHOP_INFO = this.customer.getStore();
-   if(this.SHOP_INFO){
-    if(this.SHOP_INFO.data.name){
-      this.NAME_SHOP = this.SHOP_INFO.data.name;
-     }else{
-      this.NAME_SHOP = this.SHOP_INFO.data.email;
   
-     }
-   }
   
    
-   console.log(this.ACCOUNT_INFO)
+   console.log(this.ACCOUNT_SHOP_INFO)
   }
 
  

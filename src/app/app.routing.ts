@@ -5,8 +5,9 @@ import { Routes, RouterModule, RouterLink } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { NeedAuthGuard } from './auth/auth.guard';
 import { WebLayoutComponent } from './layouts/web-layout/web-layout.component';
+import { ShopLoginAuthGuard } from './auth/auth-shop-login.guard';
+
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
   {
     path: 'shop',
     component: AdminLayoutComponent,
-    canActivate: [NeedAuthGuard],
+    canActivate:[ShopLoginAuthGuard],
+
     // data: {
     //   role: RouterLink.CanFixABC
     // },
@@ -63,7 +65,7 @@ const routes: Routes = [
     })
   ],
   providers: [
-    NeedAuthGuard
+    ShopLoginAuthGuard
   ],
   exports: [
   ],

@@ -30,7 +30,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.customer.isLogged()) {
-      this.router.navigateByUrl("/shop/dashboard");
+      this.router.navigateByUrl("/");
+    }
+    if (this.customer.isLoggedShop()) {
+      this.router.navigateByUrl("/shop/controller/dashboard");
     }
     this.form = this.fb.group(this.service.loginFormControl);
     this.route.queryParamMap.subscribe(params => {
@@ -65,14 +68,25 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe({
         next: value => {
           console.log(value)
-          this.customer.setAccount(value);
           this.token = value.data.credential.accessToken;
-          this.customer.setToken(this.token);
-          this.getInfoShop( value.data.account.storeId );
+
+          if (value.data.account.typeAccount == 0) {
+            console.log('in user');
+            this.customer.setAccount(value);
+            this.customer.setTokenAccount(this.token);
+            this.redirectUrl='/'
+          }
+
+          if (value.data.account.typeAccount == 1) {
+            console.log('in shop');
+            this.customer.setAccountStore(value);
+            this.customer.setTokenStore(this.token);
+            this.redirectUrl='/store/controller/dashboard'
+          }
 
           this.router.navigateByUrl(this.redirectUrl)
 
-          // console.log('request success', localStorage.getItem('TOKEN'));
+
 
         },
         error: err => {
@@ -84,16 +98,5 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
   }
 
-  getInfoShop(value) {
-    this.shopService.getInfoStore(value)
-      .subscribe({
-        next: value => {
-          this.customer.setStore(value)
-        },
-        error: err => {
-          console.log(err)
-        }
-      })
 
-  }
 }

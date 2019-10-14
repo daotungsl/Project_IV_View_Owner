@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CustomerService } from 'src/app/auth/customer.service';
 
 @Component({
   selector: 'app-web-layout',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WebLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private customer: CustomerService,
+
+
+  ) {
+    
+   }
 
   ngOnInit() {
+    if (this.customer.isLoggedShop()) {
+      this.router.navigateByUrl("/shop/controller/dashboard");
+    }
   }
 
 }

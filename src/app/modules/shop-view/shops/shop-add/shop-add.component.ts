@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ShopsService } from '../shops.service';
 import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
 import { AdminLayoutComponent } from 'src/app/layouts/admin-layout/admin-layout.component';
+import { WebLayoutService } from 'src/app/layouts/web-layout/web-layout.service';
 
 @Component({
   selector: 'app-shop-add',
@@ -16,75 +17,49 @@ export class ShopAddComponent implements OnInit {
   formAddShop: FormGroup;
   isChecked: boolean;
   errors = ERROR_SHOP_INFO;
-  accountInfo:IAccount
+  accountInfo: IAccount
+  dataCities: any;
+  fileToUpload: File = null;
 
-  datasTypeStore = [{
-    id: 0,
-    name: "Nhà hàng 1",
-    description: '',
-    created: "03:34:32 27 09 2019",
-    updated: "03:34:32 27 09 2019",
-    status: 1
-  },
-  {
-    id: 1,
-    name: "Nhà hàng 2",
-    description: '',
-    created: "03:34:32 27 09 2019",
-    updated: "03:34:32 27 09 2019",
-    status: 1
-  },
-  {
-    id: 2,
-    name: "Nhà hàng 3",
-    description: '',
-    created: "03:34:32 27 09 2019",
-    updated: "03:34:32 27 09 2019",
-    status: 1
-  },
-  {
-    id: 3,
-    name: "Nhà hàng 4",
-    description: '',
-    created: "03:34:32 27 09 2019",
-    updated: "03:34:32 27 09 2019",
-    status: 1
-  }
-  ]
+  datasTypeStore: any;
+
   constructor(
     private fb: FormBuilder,
     private serviceShopAdd: ShopsService,
     private serviceCustomer: CustomerService,
     private router: Router,
-    private admin: AdminLayoutComponent
+    private admin: AdminLayoutComponent,
+    private webService: WebLayoutService,
+
 
   ) { }
 
   ngOnInit() {
-    this.accountInfo = this.admin.ACCOUNT_INFO
-
+    this.accountInfo = this.admin.ACCOUNT_SHOP_INFO
+    this.getTypeStore();
+    this.getAllCity();
     if (this.serviceCustomer.isShop() != -1) {
       this.router.navigateByUrl("/shop/controller/info");
     }
     this.formAddShop = this.fb.group(
       this.serviceShopAdd.AddInfoFormControl
-     
+
     );
     this.formAddShop
-    .get('accountId')
-    .setValue(this.accountInfo.data.account.id);
+      .get('accountId')
+      .setValue(this.accountInfo.data.account.id);
 
-  this.formAddShop
-    .get('phone')
-    .setValue(this.accountInfo.data.account.phone);
+    this.formAddShop
+      .get('phone')
+      .setValue(this.accountInfo.data.account.phone);
 
-  this.formAddShop
-    .get('email')
-    .setValue(this.accountInfo.data.account.email);
+    this.formAddShop
+      .get('email')
+      .setValue(this.accountInfo.data.account.email);
 
 
   }
-
+  
   checkBoxValue(e) {
     this.isChecked = e.target.checked;
 
@@ -99,14 +74,55 @@ export class ShopAddComponent implements OnInit {
       .subscribe({
         next: value => {
           console.log(value)
-         
 
 
+
+        },
+        error: err => {
+          console.log(err)
+
+        }
+      })
+  }
+  getTypeStore() {
+    this.serviceShopAdd.getTypeStore().subscribe({
+      next: value => {
+        console.log(value)
+        this.datasTypeStore = value.data;
+      },
+      error: err => {
+        console.log(err)
+      }
+    })
+  }
+  getAllCity() {
+    this.webService.getCity()
+      .subscribe({
+        next: value => {
+          console.log(value)
+          this.dataCities = value.data
         },
         error: err => {
           console.log(err.error)
 
         }
       })
+  }
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    console.log(this.fileToUpload);
+    this.uploadFileToActivity(this.fileToUpload);
+}
+  uploadFileToActivity(value) {
+    this.webService.postFile(value)
+    .subscribe({
+      next: value => {
+        console.log(value)
+      },
+      error: err => {
+        console.log(err)
+
+      }
+    })
   }
 }

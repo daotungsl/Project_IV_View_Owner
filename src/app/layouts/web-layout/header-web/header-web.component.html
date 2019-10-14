@@ -43,14 +43,14 @@
                   <span>Cửa Hàng</span>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a  (click)="tryLogout()" class="dropdown-item">
+                <a href="/" (click)="tryLogout()" class="dropdown-item">
                   <i class="ni ni-user-run"></i>
                   <span>Logout</span>
                 </a>
               </div>
             </li>
           </ul>
-      <ng-container *ngIf="!checkLogin">
+      <ng-container *ngIf="!checkLogin"> 
           <i class="fas fa-user"></i>
           <a class="ml-1 "style="color: #fff" routerLinkActive="active" routerLink="/user/login">Tài khoản</a>
       </ng-container>

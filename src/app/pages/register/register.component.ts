@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit {
                 console.log(value);
                 this.customer.setAccount(value)
                 this.token = value.data.credential.accessToken;
-                this.customer.setToken(this.token);
+                this.customer.setTokenAccount(this.token);
                 this.router.navigateByUrl('/')
 
                  console.log('request success', localStorage.getItem('TOKEN'));

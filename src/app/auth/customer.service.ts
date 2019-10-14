@@ -3,18 +3,24 @@ import { LoginComponent } from '../pages/login/login.component';
 import { IAccount } from '../interfaces/web-client/account-wc.interface';
 import { IInfoSo } from '../interfaces/shop-owner/Info-so.interface';
 
-const TOKEN = 'TOKEN';
-const ACCOUNT = 'Account';
-const STORE = 'Store';
+const ACCOUNT_TOKEN = 'ACCOUNT_TOKEN';
+const STORE_TOKEN = 'STORE_TOKEN';
+const ACCOUNT = 'ACCOUNT';
+const STORE = 'STORE';
+const ACCOUNT_STORE = 'ACCOUNT_STORE';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
 
-  setToken(token: string): void {
-    localStorage.setItem(TOKEN, token);
-    console.log(localStorage.getItem(TOKEN));
+  setTokenAccount(token: string): void {
+    localStorage.setItem(ACCOUNT_TOKEN, token);
+    console.log(localStorage.getItem(ACCOUNT_TOKEN));
+  }
+  setTokenStore(token: string): void {
+    localStorage.setItem(STORE_TOKEN, token);
+    console.log(localStorage.getItem(STORE_TOKEN));
   }
 
   setAccount(account: IAccount): void {
@@ -31,6 +37,22 @@ export class CustomerService {
    removeAccount(): void{
      localStorage.removeItem(ACCOUNT);
      console.log(localStorage.getItem(ACCOUNT));
+ 
+   }
+   setAccountStore(account: IAccount): void {
+    if(localStorage.getItem(ACCOUNT_STORE)){
+      this.removeAccount();
+    }
+    localStorage.setItem(ACCOUNT_STORE, JSON.stringify(account));
+    console.log(localStorage.getItem(ACCOUNT_STORE));
+  }
+  getAccountStore(): IAccount{
+    return JSON.parse(localStorage.getItem(ACCOUNT_STORE));
+   }
+ 
+   removeAccountStore(): void{
+     localStorage.removeItem(ACCOUNT_STORE);
+     console.log(localStorage.getItem(ACCOUNT_STORE));
  
    }
 
@@ -53,18 +75,21 @@ export class CustomerService {
   
 
   removeToken(): void{
-    localStorage.removeItem(TOKEN);
-    console.log(localStorage.getItem(TOKEN));
+    localStorage.removeItem(ACCOUNT_TOKEN);
+    localStorage.removeItem(STORE_TOKEN);
 
   }
 
   isLogged() {
-    return localStorage.getItem(TOKEN) != null;
+    return localStorage.getItem(ACCOUNT_TOKEN) != null;
+  }
+  isLoggedShop() {
+    return localStorage.getItem(STORE_TOKEN) != null;
   }
 
   isShop(){
-    if(localStorage.getItem(ACCOUNT)){
-      return JSON.parse(localStorage.getItem(ACCOUNT)).data.account.storeId;
+    if(localStorage.getItem(ACCOUNT_STORE)){
+      return JSON.parse(localStorage.getItem(ACCOUNT_STORE)).data.account.storeId;
     }
     return  null;
 

@@ -3,7 +3,7 @@ import { Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IAddressSO } from 'src/app/interfaces/shop-owner/address-so.interface';
-import { API_DOMAIN, HTTP_HEADER } from 'src/app/shared/constant';
+import { API_DOMAIN, HTTP_HEADER, HTTP_HEADER_STORE } from 'src/app/shared/constant';
 import { map } from 'rxjs/operators';
 import { IInfoSo } from 'src/app/interfaces/shop-owner/Info-so.interface';
 import { DISABLED } from '@angular/forms/src/model';
@@ -26,7 +26,10 @@ export class ShopsService {
     phone: [{value: null, DISABLED:true}, [Validators.required, Validators.pattern(/([+]84[9|1]|09|01[2|6|8|9])+([0-9]{8})\b/g)]],
     accountId: [null, [Validators.required]],
     typeStoreId: [null, [Validators.required]],
-    image: [null, []]
+    address: [null, [Validators.required]],
+    description: [null, [Validators.required]],
+    cityId: [null, [Validators.required]],
+    images: [null, []]
   }
   constructor(
     private http: HttpClient
@@ -47,11 +50,12 @@ export class ShopsService {
   );
   }
   tryAddShopInfo(value): Observable<IInfoSo>{
+console.log(HTTP_HEADER_STORE);
     return this.http.post<{data: IInfoSo}>(
       `${API_DOMAIN}api/stores/store`,
     value,
     {
-      headers: HTTP_HEADER
+      headers: HTTP_HEADER_STORE
     }
   ).pipe(
     map(res => {
@@ -63,6 +67,17 @@ export class ShopsService {
   getInfoStore(value): Observable<IInfoSo>{
     return this.http.get<IInfoSo>(
       `${API_DOMAIN}unauthentic/stores/store/-/${value}`
+
+  ).pipe(
+    map(res => {
+      console.log(res);
+      return res;
+    })
+  );
+  }
+  getTypeStore(): Observable<any>{
+    return this.http.get<any>(
+      `${API_DOMAIN}unauthentic/type-stores`
 
   ).pipe(
     map(res => {
