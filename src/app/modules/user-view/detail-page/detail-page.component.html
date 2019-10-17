@@ -29,8 +29,20 @@
                 </div>
                 <div class="card p-3 bg-white mt-3">
                     <div class="card-header-title">
-                        <h4 class="text-danger mask-strong"><i class="fas fa-utensils mr-1" aria-hidden="true"></i>
-                            {{dataVoucher?.data.name}}</h4>
+                        <div>
+                            <h4 class="text-danger mask-strong"><i class="fas fa-utensils mr-1" aria-hidden="true"></i>
+                                {{dataVoucher?.data.name}}</h4>
+                        </div>
+                        <div class="">
+                            Ngày hết hạn:
+                            {{dataVoucher?.data.expiredDay |slice:9}}
+
+                        </div>
+                        <div>
+                            Số lượn còn:
+                            {{dataVoucher?.data.slotLeft}}
+                            Voucher
+                        </div>
                         <hr>
                         <p>{{dataVoucher?.data.description}}</p>
                         <h4>
@@ -134,7 +146,7 @@
                                         </ng-container>
                                     </div>
                                 </div>
-                                
+
                                 <hr>
                                 <h5>Thời gian</h5>
                                 <select class="custom-select browser-default">
@@ -179,11 +191,10 @@
                 </div>
                 <div class="card text-center mt-3">
                     <div class="img-thumbnail p-2">
-                        <img src="https://img.jamja.vn/jamja-prod/gcs_full_58558dc276ec5726805ac119-2016-12-17-191100.png"
-                            height="60px" width="auto" alt="">
+                        <img [src]="dataVoucher?.data.icon" height="80px" width="auto" alt="">
                     </div>
                     <span class="p-2">
-                       {{dataVoucher?.data.description}}
+                        {{dataVoucher?.data.description}}
                     </span>
                     <hr>
                     <a href="#" class="mb-3 text-danger">King BBQ trên Dealhunter &gt;&gt;</a>

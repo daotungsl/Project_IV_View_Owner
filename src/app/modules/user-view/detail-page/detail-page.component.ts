@@ -17,7 +17,7 @@ export class DetailPageComponent implements OnInit {
   errors = ERROR_ODER_VOUCHER;
 
   public location: Location;
-  dataVoucher: IVoucherSO;
+  dataVoucher: any;
   dataTimeVoucher: any;
   dataAddress : any;
   isShow = false;
@@ -42,9 +42,16 @@ export class DetailPageComponent implements OnInit {
     this.formOder = this.fb.group(
       this.voucherSevice.OderFornControl
     );
+
+
+
+
   }
   goBack() {
     this.location.back();
+  }
+  renderTime(startTime, endTime){
+
   }
   getVoucherByUA(value) {
     this.voucherSevice.getVoucherByUA(value)
@@ -56,6 +63,8 @@ export class DetailPageComponent implements OnInit {
           this.dataAddress = value.data.storeAddress
           console.log(new Date(value.data.promotionTimeDto.startTime))
           // this.getAddressStore(value.data.storeId)
+    console.log(this.dataTimeVoucher)
+
         },
         error: err => {
           console.log(err.error)
