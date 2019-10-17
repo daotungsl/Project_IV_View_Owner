@@ -27,7 +27,8 @@ import { DetailPageComponent } from 'src/app/modules/user-view/detail-page/detai
       BodyWebComponent, 
       FooterWebComponent, 
       CardItemVoucherComponent,
-      DetailPageComponent
+      DetailPageComponent,
+
   ]
   ,
   exports: [

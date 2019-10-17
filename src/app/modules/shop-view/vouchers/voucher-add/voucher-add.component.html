@@ -83,7 +83,7 @@
                           <div class="form-group">
                             <div class="my-0 mx-0 px-0 bg-white image-fix"
                               [ngStyle]="{ 'background-image': 'url('+filename+')'}">
-                            
+
                             </div>
                           </div>
                         </div>
@@ -193,7 +193,7 @@
                                 id="input-max-slot">
                                 <option selected disabled="disabled" [value]="null">Choose...</option>
                                 <option *ngFor="let time of timeSlot" [value]="time">
-                                  {{time}} </option>
+                                  {{time |addTimePipe}} </option>
                               </select>
                               <ng-container *ngIf="startTime.invalid && startTime.dirty || myform.submitted">
                                 <div class="text-danger">
@@ -210,7 +210,7 @@
                                 id="input-max-slot">
                                 <option selected disabled="disabled" [value]="null">Choose...</option>
                                 <option *ngFor="let time of timeSlot" [value]="time">
-                                  {{time}}</option>
+                                  {{time| addTimePipe}}</option>
                               </select>
                               <ng-container *ngIf="endTime.invalid && endTime.dirty || myform.submitted">
                                 <div class="text-danger">

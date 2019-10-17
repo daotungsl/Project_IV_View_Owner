@@ -86,7 +86,6 @@ export class ShopAddressListComponent implements OnInit {
       .subscribe({
         next: value => {
           this.getInfoStore(this.accountShopInfo.data.account.storeId)
-          this.modalService.dismissAll()
           console.log(value);
 
         },
@@ -115,6 +114,8 @@ export class ShopAddressListComponent implements OnInit {
       .subscribe({
         next: value => {
           this.customer.setStore(value);
+          this.modalService.dismissAll()
+
           this.ngOnInit();
 
         },

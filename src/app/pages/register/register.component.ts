@@ -7,6 +7,7 @@ import { ERROR_REGISTER } from 'src/app/shared/err-notify';
 import { LoginService } from '../login/login.service';
 import { MustMatch } from './mustMatch.component';
 import { Md5 } from 'ts-md5';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-register',
@@ -28,11 +29,13 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private serviceRegister: RegisterService,
     private serviceLogin: LoginService,
+    private modalService: NgbModal,
     private customer: CustomerService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.modalService.dismissAll();
     if (this.customer.isLogged()) {
       this.router.navigateByUrl("/");
     }
@@ -40,6 +43,8 @@ export class RegisterComponent implements OnInit {
       this.serviceRegister.registerFormControl,
       { validator: MustMatch('password', 'repassword') }
     );
+    window.scrollTo(0,0);
+
   }
 
   checkBoxValue(e) {

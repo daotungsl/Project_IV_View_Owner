@@ -147,41 +147,288 @@
                                     </div>
                                 </div>
 
-                                <hr>
                                 <h5>Thời gian</h5>
-                                <select class="custom-select browser-default">
-                                    <option value="" disabled="">Choose option</option>
-                                    <option value="1" selected="">11:00 AM</option>
-                                    <option value="2">11:30 AM</option>
-                                    <option value="3">12:00 PM</option>
-                                    <option value="4">12:30 PM</option>
-                                    <option value="5">13:00 PM</option>
-                                    <option value="6">13:30 PM</option>
-                                </select>
-                                <hr>
-                                <div class="md-form mt-3">
-                                    <input type="text" id="materialContactFormName" class="form-control">
-                                    <label for="materialContactFormName">Mã giảm giá (nếu có)</label>
+                                <div class="form-group" *ngIf="formOder.get('time') as time">
+                                    <select class="form-control custom-select browser-default" id="input-type-store"
+                                        [formControl]='time'>
+                                        <option selected disabled="disabled" [value]="null">Choose time</option>
+
+                                        <option *ngFor="let data of dataTimeVoucher" [ngValue]=data>
+                                            {{data | addTimePipe}}
+                                        </option>
+                                    </select>
+                                    <div>
+                                        <ng-container *ngIf="time.invalid && time.dirty || myform.submitted">
+                                            <div class="text-danger">
+                                                <span *ngIf="time.hasError('required')">{{errors.time.required}}</span>
+                                            </div>
+
+                                        </ng-container>
+                                    </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group" *ngIf="formOder.get('adults') as adults">
+                                            <select class="form-control custom-select browser-default"
+                                                id="input-type-store" [formControl]='adults'>
+
+                                                <option *ngFor="let data of [0,1,2,3,4,5,6,7,8,9,10]" [ngValue]=data>
+                                                    {{data}} Người lớn
+                                                </option>
+                                            </select>
+                                            <div>
+                                                <ng-container
+                                                    *ngIf="adults.invalid && adults.dirty || myform.submitted">
+                                                    <div class="text-danger">
+                                                        <span
+                                                            *ngIf="adults.hasError('required')">{{errors.adults.required}}</span>
+                                                    </div>
+
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group" *ngIf="formOder.get('children') as children">
+                                            <select class="form-control custom-select browser-default"
+                                                id="input-type-store" [formControl]='children'>
+
+                                                <option *ngFor="let data of [0,1,2,3,4,5,6,7,8,9,10]" [ngValue]=data>
+                                                    {{data}} Trẻ em
+                                                </option>
+                                            </select>
+                                            <div>
+
+                                                <ng-container
+                                                    *ngIf="children.invalid && children.dirty || myform.submitted">
+                                                    <div class="text-danger">
+                                                        <span
+                                                            *ngIf="children.hasError('required')">{{errors.adults.required}}</span>
+                                                    </div>
+
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5>Ngày sử dụng</h5>
+
+                                        <div class="form-group" *ngIf="formOder.get('day') as day"
+                                            [ngClass]="{'focused':focus2===true}">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="ni ni-calendar-grid-58"></i></span>
+                                                </div>
+                                                <input class="form-control datepicker" placeholder="Select date"
+                                                    [formControl]='day' name="dp" [(ngModel)]="model1" ngbDatepicker
+                                                    #d="ngbDatepicker" (click)="d.toggle()" (focus)="focus2=true"
+                                                    (blur)="focus2=false" type="text" autocomplete="off" />
+                                            </div>
+                                            <div>
+
+                                                <ng-container *ngIf="day.invalid && day.dirty || myform.submitted">
+                                                    <div class="text-danger">
+                                                        <span
+                                                            *ngIf="day.hasError('required')">{{errors.day.required}}</span>
+                                                    </div>
+
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
 
                                 <!--Message-->
-                                <div class="md-form">
-                                    <textarea id="materialContactFormMessage" class="form-control md-textarea"
-                                        rows="3"></textarea>
-                                    <label for="materialContactFormMessage">Ghi chú</label>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5>Ghi chú</h5>
+                                        <div class="form-group" *ngIf="formOder.get('description') as description">
+                                            <textarea id="materialContactFormMessage" class="form-control md-textarea"
+                                                placeholder="Lời nhắn cho cửa hàng ..." rows="3"></textarea>
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                                <!-- Copy -->
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="materialContactFormCopy">
-                                    <label class="form-check-label" for="materialContactFormCopy">Xác nhận đặt
-                                        chỗ</label>
-                                </div>
+
 
                                 <!-- Send button -->
                                 <button class="btn btn-outline-danger btn-rounded btn-block z-depth-0 my-4 waves-effect"
-                                    type="submit">Đặt chỗ</button>
+                                    (click)="open(oder,login,success, 'modal_oder', '')">Đặt chỗ</button>
+                              
+                                <!-- modal oder  -->
+                                <ng-template #oder let-c="close()" let-c="dismiss()">
+                                    <div class="modal-content bg-gradient-danger">
+                                        <div class="modal-body">
+                                            <div class="py-3 text-center">
+                                                <i class="ni ni-bell-55 ni-3x"></i>
+                                                <h4 class=" heading mt-4">Bạn có chắc chắn muốn đặt chỗ với voucher
+                                                    </h4>
+                                                <h4 class="heading mt-4">{{dataVoucher?.data.name}}
+                                                </h4>
 
+                                                <h5>
+                                                    <i class="fas fa-map-marker-alt text-white"></i> {{infoAddress}}
+                                                </h5>
+                                                <h5>
+                                                    <i class="fas fa-users text-white" ></i> {{infoOder.adults}} người lớn <span
+                                                        *ngIf="infoOder.children > 0"> và {{infoOder.children}} trẻ em
+                                                    </span>
+
+                                                </h5>
+                                                <h5>
+                                                    <i class="far fa-clock text-white"></i> {{infoOder.time | addTimePipe }} Ngày
+                                                    {{infoOder.day.day}}
+                                                    Tháng {{infoOder.day.month}} Năm {{infoOder.day.year}}
+                                                </h5>
+
+
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            
+                                                    <div class="col-3">
+                                                            <button [disabled]="!isValid" type="button" class="btn btn-white"
+                                                            (click)="doSubmit()">Triển luôn</button>
+                                                    </div>
+                                                    <div class="col-4 ">
+                                                            <img class="loading-img" [hidden]="isValid"  src="./assets/img/gif/lg.palette-rotating-ring-loader.gif" alt="">
+        
+                                                    </div>
+                                                    <div class="col-3">
+                                                            <button type="button" class="btn btn-link text-white ml-auto"
+                                                            data-dismiss="modal" (click)="c">Hủy</button>
+                                                    </div>
+                                            
+                                           
+                                         
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <!-- modal success  -->
+                                <ng-template #success let-c="close()" let-e="dismiss()">
+                                    <div class="modal-content ">
+                                        <div class="modal-body">
+                                            <div class="py-3 success-oder text-center">
+                                                <i class="ni ni-bell-55 ni-3x success-oder"></i>
+
+                                                <h4 class="heading success-oder mt-4">Đặt Chỗ Thành Công
+                                                </h4>
+                                                <h5>
+                                                    Cảm ơn <strong>{{dataSuccess?.data.guestName}}</strong> đã đặt chỗ tại nhà hàng
+                                                    <strong>{{dataSuccess?.data.storeName}}</strong> chúng tôi.
+                                                </h5>
+                                                <h5>
+                                                    Khi đến nhà hàng, vui lòng cung cấp mã
+                                                    <strong>{{dataSuccess?.data.code}}</strong> hoặc tên hoặc sđt
+                                                    <strong>{{dataSuccess?.data.guestPhone}}</strong>. Để được hưởng ưu
+                                                    đãi giảm <strong>{{dataSuccess?.data.sale}}</strong> trên tổng hóa đơn.
+                                                </h5>
+                                                <h5>
+                                                    Thời gian: <strong>{{dataSuccess?.data.time}}</strong> Ngày
+                                                    <strong>{{dataSuccess?.data.day}}</strong>.
+                                                </h5>
+                                                <h5>
+                                                    Địa điểm: {{dataSuccess?.data.storeAddress}}.
+                                                </h5>
+                                                <h5>
+                                                    Bao gồm: <strong>{{dataSuccess?.data.adults}}</strong><span> và
+                                                        <strong>{{dataSuccess?.data.children}}</strong></span>.
+                                                </h5>
+                                                <h4 class=" mt-4">
+
+                                                    Vui lòng đến trước 15 phút để nhận bàn. Nếu quá 15 phút quý khách
+                                                    không có mặt thì voucher sẽ hết hiệu lực.
+
+                                                </h4>
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                                <button type="button" class="btn btn-info btn-block" data-dismiss="modal"
+                                                (click)="e">Đồng Ý</button>
+                                                <button type="button" class="btn btn-primary btn-block" data-dismiss="modal"
+                                                 [routerLink]="['/']">Trang Chủ</button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <!-- modal login -->
+                                <ng-template #login let-c="close()" let-d="dismiss()">
+                                    <div class="modal-content">
+                                        <div class="modal-body ">
+                                            <div class="card bg-secondary shadow border-0">
+
+                                                <div class="card-body px-lg-5 py-lg-5">
+                                                    <div class="text-center text-muted mb-4">
+                                                        <h2>Sign in with credentials</h2>
+                                                    </div>
+                                                    <form role="form" [formGroup]="form">
+                                                        <div class="form-group mb-3"
+                                                            *ngIf="form.get('username') as username">
+                                                            <div class="input-group input-group-alternative">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i
+                                                                            class="ni ni-email-83"></i></span>
+                                                                </div>
+                                                                <input class="form-control" placeholder="Email"
+                                                                    [formControl]='username' type="email">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group"
+                                                            *ngIf="form.get('password') as password">
+                                                            <div class="input-group input-group-alternative">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text"><i
+                                                                            class="ni ni-lock-circle-open"></i></span>
+                                                                </div>
+                                                                <input class="form-control" placeholder="Password"
+                                                                    [formControl]="password" type="password">
+                                                                <ng-container
+                                                                    *ngIf="password.invalid && password.dirty">
+                                                                    <span *ngIf="password.hasError('required')">Loi
+                                                                        cmnr</span>
+                                                                </ng-container>
+
+
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="custom-control custom-control-alternative custom-checkbox">
+                                                            <input class="custom-control-input" id=" customCheckLogin"
+                                                                type="checkbox">
+                                                            <label class="custom-control-label" for=" customCheckLogin">
+                                                                <span class="text-muted">Remember me</span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="text-center">
+                                                            <button type="submit" (click)="doLogin()"
+                                                                class="btn btn-primary my-4">Sign in</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-6">
+                                                    <a href="javascript:void(0)" class="text-login"><small>Forgot
+                                                            password?</small></a>
+                                                </div>
+                                                <div class="col-6 text-right">
+                                                    <a [routerLink]="['/user/register']"
+                                                        class="text-login"><small>Create new account</small></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
                             </form>
                         </div>
                         <!--                        <div class="card-footer text-muted success-color white-text">-->

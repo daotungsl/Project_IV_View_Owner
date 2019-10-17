@@ -12,6 +12,7 @@ const ACCOUNT_STORE = 'ACCOUNT_STORE';
 const STORE_VOUCHER_LIST = 'STORE_VOUCHER_LIST';
 const STORE_TYPE_VOUCHER = 'STORE_TYPE_VOUCHER';
 const STORE_TYPE = 'STORE_TYPE';
+const VOUCHER = 'VOUCHER';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,19 @@ export class CustomerService {
   removeStore(): void{
     localStorage.removeItem(STORE);
     console.log(localStorage.getItem(STORE));
+
+  }
+
+  setVoucher(voucher): void {
+    localStorage.setItem(VOUCHER, JSON.stringify(voucher));
+    console.log(localStorage.getItem(VOUCHER));
+  }
+  getVoucher(): any{
+    return JSON.parse(localStorage.getItem(VOUCHER));
+   }
+  removeVoucher(): void{
+    localStorage.removeItem(VOUCHER);
+    console.log(localStorage.getItem(VOUCHER));
 
   }
 

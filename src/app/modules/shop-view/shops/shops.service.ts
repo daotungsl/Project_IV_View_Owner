@@ -58,7 +58,12 @@ export class ShopsService {
       `${API_DOMAIN}api/stores/store/address`,
       value,
       {
-        headers: HTTP_HEADER_STORE
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('STORE_TOKEN'),
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        }
       }
     ).pipe(
       map(res => {
@@ -74,7 +79,12 @@ export class ShopsService {
       `${API_DOMAIN}api/stores/store/address/${value.id}`,
       value,
       {
-        headers: HTTP_HEADER_STORE
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('STORE_TOKEN'),
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        }
       }
     ).pipe(
       map(res => {
@@ -83,13 +93,18 @@ export class ShopsService {
       })
     );
   }
-  tryDeleteAddress(value){
+  tryDeleteAddress(value) {
     console.log(HTTP_HEADER_STORE)
 
     return this.http.delete(
-      `${API_DOMAIN}api/stores/store/address/${value}` ,
+      `${API_DOMAIN}api/stores/store/address/${value}`,
       {
-        headers: HTTP_HEADER_STORE
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('STORE_TOKEN'),
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        }
       }
     ).pipe(
       map(res => {
@@ -114,9 +129,9 @@ export class ShopsService {
       {
         headers: {
           'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('STORE_TOKEN'),
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+          Authorization: localStorage.getItem('STORE_TOKEN'),
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
         }
       }
     ).pipe(

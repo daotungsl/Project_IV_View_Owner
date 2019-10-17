@@ -31,11 +31,11 @@ export class VouchersService {
     storeId: [null, [Validators.required]],
     storeAddressId: [null, [Validators.required]],
     voucherId: [null, [Validators.required]],
-    adults: [null, [Validators.required]],
-    children: [null, [Validators.required]],
+    adults: [0, [Validators.required]],
+    children: [0, [Validators.required]],
     time: [null, [Validators.required]],
     day: [null, [Validators.required]],
-    description: [null, [Validators.required]],
+    description: [null, []],
 
   }
  

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { LangPipe } from './lang/lang.pipe';
+import { AddTimePipePipe } from './add-time-pipe.pipe';
 
 
 
 @NgModule({
-  declarations: [LangPipe ],
+  declarations: [LangPipe,AddTimePipePipe ],
   imports: [
     CommonModule,
     FormsModule,
@@ -19,7 +20,8 @@ import { LangPipe } from './lang/lang.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    LangPipe
+    LangPipe,
+    AddTimePipePipe
   ]
 })
 export class SharedModule { }

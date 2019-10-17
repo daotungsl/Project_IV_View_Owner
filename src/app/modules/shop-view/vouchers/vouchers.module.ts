@@ -28,7 +28,7 @@ import { VoucherUpdateComponent } from './voucher-update/voucher-update.componen
     VoucherListComponent,
     CardVoucherComponent,
     RemovewhitespacesPipe,
-    VoucherUpdateComponent
+    VoucherUpdateComponent,
 
   ]
 })
