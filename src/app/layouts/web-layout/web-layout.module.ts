@@ -9,6 +9,7 @@ import { BodyWebComponent } from './body-web/body-web.component';
 import { FooterWebComponent } from './footer-web/footer-web.component';
 import { UserViewModule } from 'src/app/modules/user-view/user-view.module';
 import { CardItemVoucherComponent } from './card-item-voucher.component';
+import { DetailPageComponent } from 'src/app/modules/user-view/detail-page/detail-page.component';
 
 @NgModule({
 
@@ -25,7 +26,8 @@ import { CardItemVoucherComponent } from './card-item-voucher.component';
       HeaderWebComponent, 
       BodyWebComponent, 
       FooterWebComponent, 
-      CardItemVoucherComponent
+      CardItemVoucherComponent,
+      DetailPageComponent
   ]
   ,
   exports: [

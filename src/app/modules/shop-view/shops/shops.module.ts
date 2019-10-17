@@ -10,6 +10,7 @@ import { ShopAddressAddComponent } from './shop-address-add/shop-address-add.com
 import { ShopAddressListComponent } from './shop-address-list/shop-address-list.component';
 import { ShopInfoComponent } from './shop-info/shop-info.component';
 import { ShopAddComponent } from './shop-add/shop-add.component';
+import { ReversePipePipe } from 'src/app/shared/reverse-pipe.pipe';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { ShopAddComponent } from './shop-add/shop-add.component';
     ShopAddressListComponent,
     ShopInfoComponent,
     ShopAddComponent,
+    ReversePipePipe
   ]
 })
 

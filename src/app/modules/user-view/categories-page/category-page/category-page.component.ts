@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { WebLayoutService } from 'src/app/layouts/web-layout/web-layout.service';
 
 @Component({
   selector: 'app-category-page',
@@ -7,23 +8,33 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./category-page.component.scss']
 })
 export class CategoryPageComponent implements OnInit {
-  urlCategory = '';
-
+  datasVoucher: any;
   constructor(
     private route: ActivatedRoute,
+    private webService : WebLayoutService
+
 
   ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
-      this.urlCategory = params.get('url');
-      // if (this.urlCategory == null) {
-      //   this.getAllData(API_URL.API_NEWS_GROUP.getAll);
-      // } else {
-      //   this.getAllData(API_URL.API_NEWS_GROUP.getByCategory + '/' + this.urlCategory);
-      // }
+     this.getAllVoucherByType(params.get('url'));
     });
-    console.log(this.urlCategory)
+    this.webService.scrollView(0,1000);
   }
 
+  getAllVoucherByType(value){
+    this.webService.getAllVoucherByType(value)
+    .subscribe({
+      next: value => {
+        console.log(value)
+        this.datasVoucher = value.data
+      },
+      error: err => {
+        console.log(err.error)
+  
+      }
+    })
+  }
+  
 }

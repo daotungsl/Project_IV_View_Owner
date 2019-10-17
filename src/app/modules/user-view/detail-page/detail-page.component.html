@@ -1,0 +1,199 @@
+<!-- Header  -->
+<div class="new-feature-header-detail">
+    <app-header-web></app-header-web>
+
+</div>
+
+<!-- Body  -->
+<div class="content">
+    <div class="container pt-5">
+        <button class="btn btn-info" [routerLink]="" (click)="goBack();"> <i class="fas fa-chevron-left"></i>
+            BACK</button>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="card p-3 bg-white">
+                    <div class="my-0 mx-0 px-0 bg-white"
+                        [ngStyle]="{'height': '320px', 'background-image': 'url('+dataVoucher?.data?.image+')', 'background-repeat': 'no-repeat', 'background-size': 'cover', 'background-position': 'center center'}">
+                        <div class="text-white text-center  py-5 px-0">
+                            <div class="py-2">
+                                <!-- Content -->
+                                <div class="card-title rgba-pink-light my-4 py-2">
+                                    <h3 class="mt-1">{{dataVoucher?.data.store}}</h3>
+                                    <h5 class="bg-danger">{{dataVoucher?.data.percent}}% off</h5>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-3 bg-white mt-3">
+                    <div class="card-header-title">
+                        <h4 class="text-danger mask-strong"><i class="fas fa-utensils mr-1" aria-hidden="true"></i>
+                            {{dataVoucher?.data.name}}</h4>
+                        <hr>
+                        <p>{{dataVoucher?.data.description}}</p>
+                        <h4>
+
+                            Điều kiện ưu đãi:
+                            <button class="btn btn-secondary btn-sm" (click)="changeShow();">...</button>
+                        </h4>
+                        <hr>
+
+                        <div *ngIf="isShow">
+                            <div>*KHÔNG ÁP DỤNG DỊCH VỤ GIAO HÀNG*
+                                <br>
+                                <br>- Ưu đãi khung giờ 11h00 - 14h00 từ thứ 2 - thứ 6:
+                                <br>+ Suất Buffet nướng 199K giảm giá chỉ còn 169K
+                                <br>+ Ưu đãi khi đặt bàn từ 3 khách
+                                <br>- Ưu đãi khung giờ 11h00 - 14h00 &amp; 17h00 - 22h00 từ thứ 2 - CN
+                                <br>+ Suất Buffet nướng 279K giảm giá chỉ còn 209K
+                                <br>+ Suất Buffet nướng lẩu 329K giảm giá chỉ còn 249K
+                                <br>+ Suất Buffet nướng lẩu 349K giảm giá chỉ còn 259K
+                                <br>+ Ưu đãi áp dụng khi đặt từ 4 khách trở lên
+                                <br>
+                                <br>- Ưu đãi chưa bao gồm VAT
+                                <br>
+                                <br>- Chính sách phụ thu trẻ em:
+                                <br>+ Trẻ em cao dưới 1m: Miễn phí
+                                <br>+ Trẻ em cao từ 1m – dưới 1m3: Tính 30%/ giá buffet người lớn
+                                <br>+ Trẻ em cao trên 1m3: Tính như người lớn
+                                <br>
+                                <br>THỜI GIAN ÁP DỤNG
+                                <br>- Áp dụng tất cả các ngày trong tuần
+                                <br>- Không áp dụng các ngày lễ, Tết: 20/10; 20/11; 24/12; 25/12; 31/12
+                                <br>
+                                <br>Chi tiết địa điểm xem tại ""Điểm áp dụng""
+                                <br>
+                                <br>Vui lòng bấm XÁC NHẬN ĐẶT CHỖ để nhận mã giảm giá
+                                <br>
+                                <br>LƯU Ý
+                                <br>- Chương trình chỉ áp dụng với khách mua dùng tại cửa hàng, không áp dụng giao hàng
+                                &amp; mua mang về
+                                <br>- Không áp dụng phụ thu
+                                <br>- Không áp dụng đồng thời với các chương trình khác của King BBQ
+                                <br>- Thông báo mã JAMJA ngay khi đến cửa hàng để được hướng dẫn nhận khuyến mãi
+                                <br>- Khách hàng được phép đến sớm hoặc muộn hơn 15 phút so với giờ hẹn đến
+                                <br>- Mã giảm giá không có giá trị quy đổi thành tiền mặt
+                                <br>
+                                <br>HOTLINE
+                                <br>- King BBQ Hàm Nghi: 024 6656 6626
+                                <br>- JAMJA: 1900 56 56 65
+                                <br>
+                                <br>MẸO: Bấm ""Theo dõi"" thương hiệu để cập nhật những thay đổi về ưu đãi ngay tức thì.
+                            </div>
+                        </div>
+
+                        <hr>
+                        <!-- / Collapsible element -->
+
+
+
+                    </div>
+                </div>
+
+                <div class="card p-3 bg-white mt-3">
+                    <div class="card-header-title">
+                        <h4>Địa điểm áp dụng</h4>
+                        <hr>
+                        <p>
+                            Áp dụng tại tất cả các cửa hàng.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-4">
+                <div class="card">
+
+                    <!--Panel-->
+                    <div class="card text-left">
+                        <div class="card-header danger-color white-text h4">
+                            Đặt chỗ nhanh
+                        </div>
+                        <div class="card-body">
+                            <form class="text-center" style="color: #757575;" role="form" [formGroup]="formOder"
+                                #myform="ngForm">
+                                <h5>Địa điểm</h5>
+                                <div class="form-group" *ngIf="formOder.get('storeAddressId') as storeAddressId">
+                                    <select class="form-control custom-select browser-default" id="input-type-store"
+                                        [formControl]='storeAddressId'>
+                                        <option selected disabled="disabled" [value]="null">Choose address</option>
+
+                                        <option *ngFor="let data of dataAddress" [ngValue]=data.id>{{data.address}}
+                                        </option>
+                                    </select>
+                                    <div>
+                                        <ng-container
+                                            *ngIf="storeAddressId.invalid && storeAddressId.dirty || myform.submitted">
+                                            <div class="text-danger">
+                                                <span
+                                                    *ngIf="storeAddressId.hasError('required')">{{errors.address.required}}</span>
+                                            </div>
+
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                
+                                <hr>
+                                <h5>Thời gian</h5>
+                                <select class="custom-select browser-default">
+                                    <option value="" disabled="">Choose option</option>
+                                    <option value="1" selected="">11:00 AM</option>
+                                    <option value="2">11:30 AM</option>
+                                    <option value="3">12:00 PM</option>
+                                    <option value="4">12:30 PM</option>
+                                    <option value="5">13:00 PM</option>
+                                    <option value="6">13:30 PM</option>
+                                </select>
+                                <hr>
+                                <div class="md-form mt-3">
+                                    <input type="text" id="materialContactFormName" class="form-control">
+                                    <label for="materialContactFormName">Mã giảm giá (nếu có)</label>
+                                </div>
+
+                                <!--Message-->
+                                <div class="md-form">
+                                    <textarea id="materialContactFormMessage" class="form-control md-textarea"
+                                        rows="3"></textarea>
+                                    <label for="materialContactFormMessage">Ghi chú</label>
+                                </div>
+
+                                <!-- Copy -->
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="materialContactFormCopy">
+                                    <label class="form-check-label" for="materialContactFormCopy">Xác nhận đặt
+                                        chỗ</label>
+                                </div>
+
+                                <!-- Send button -->
+                                <button class="btn btn-outline-danger btn-rounded btn-block z-depth-0 my-4 waves-effect"
+                                    type="submit">Đặt chỗ</button>
+
+                            </form>
+                        </div>
+                        <!--                        <div class="card-footer text-muted success-color white-text">-->
+                        <!--                            <p class="mb-0">2 days ago</p>-->
+                        <!--                        </div>-->
+                    </div>
+                </div>
+                <div class="card text-center mt-3">
+                    <div class="img-thumbnail p-2">
+                        <img src="https://img.jamja.vn/jamja-prod/gcs_full_58558dc276ec5726805ac119-2016-12-17-191100.png"
+                            height="60px" width="auto" alt="">
+                    </div>
+                    <span class="p-2">
+                       {{dataVoucher?.data.description}}
+                    </span>
+                    <hr>
+                    <a href="#" class="mb-3 text-danger">King BBQ trên Dealhunter &gt;&gt;</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Footer  -->
+<div class="footer">
+    <app-footer-web></app-footer-web>
+</div>

@@ -7,7 +7,7 @@ import { LangPipe } from './lang/lang.pipe';
 
 
 @NgModule({
-  declarations: [LangPipe],
+  declarations: [LangPipe ],
   imports: [
     CommonModule,
     FormsModule,

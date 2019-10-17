@@ -3,7 +3,7 @@ import { Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IVoucherSO } from 'src/app/interfaces/shop-owner/voucher-so.interface';
 import { HttpClient } from '@angular/common/http';
-import { API_DOMAIN, HTTP_HEADER } from 'src/app/shared/constant';
+import { API_DOMAIN, HTTP_HEADER, HTTP_HEADER_STORE, HTTP_HEADER_LOGIN } from 'src/app/shared/constant';
 import { map } from 'rxjs/operators';
 import { ITypeVoucherSO } from 'src/app/interfaces/shop-owner/voucher-type-so.interface';
 
@@ -12,32 +12,45 @@ import { ITypeVoucherSO } from 'src/app/interfaces/shop-owner/voucher-type-so.in
 })
 export class VouchersService {
 
-  AddVoucherFormControl = {
+  VoucherFormControl = {
     name: [null, [Validators.required, Validators.maxLength(200)]],
-    description: [null, [Validators.required, Validators.maxLength(200)]],
-    image: [null, [Validators.required, Validators.maxLength(200)]],
+    description: [null, [Validators.required, Validators.maxLength(2000)]],
+    image: [null, [Validators.required]],
     percent: [null, [Validators.required]],
     maxSlot: [null, [Validators.required]],
-    expried: [null, [Validators.required]],
     startDay: [null, [Validators.required]],
     expiredDay: [null, [Validators.required]],
     startTime: [null, [Validators.required]],
     endTime: [null, [Validators.required]],
-    dayWeek: [null, [Validators.required]],
+    dayWeek: ['2,3,4,5,6', [Validators.required]],
     storeId: [null, [Validators.required]],
     typeVoucherId: [null, [Validators.required]],
   }
+  OderFornControl = {
+    accountId: [null, [Validators.required]],
+    storeId: [null, [Validators.required]],
+    storeAddressId: [null, [Validators.required]],
+    voucherId: [null, [Validators.required]],
+    adults: [null, [Validators.required]],
+    children: [null, [Validators.required]],
+    time: [null, [Validators.required]],
+    day: [null, [Validators.required]],
+    description: [null, [Validators.required]],
+
+  }
+ 
   constructor(
     private http: HttpClient
 
   ) { }
 
   tryAddVoucher(value): Observable<IVoucherSO>{
+    console.log(HTTP_HEADER_STORE);
     return this.http.post<IVoucherSO>(
-      `${API_DOMAIN}api/so/store/voucher`,
+      `${API_DOMAIN}api/stores/store/vouchers/voucher`,
     value,
     {
-      headers: HTTP_HEADER
+      headers: HTTP_HEADER_STORE
     }
   ).pipe(
     map(res => {
@@ -46,7 +59,21 @@ export class VouchersService {
     })
   );
   }
-
+tryOder(value): Observable<any>{
+  console.log(HTTP_HEADER);
+  return this.http.post<any>(
+    `${API_DOMAIN}api/guest/transactions/transaction`,
+  value,
+  {
+    headers: HTTP_HEADER
+  }
+).pipe(
+  map(res => {
+    console.log(res);
+    return res;
+  })
+);
+}
   getAllTypeVoucher(){
     return this.http.get<ITypeVoucherSO>(
       `${API_DOMAIN}unauthentic/type-vouchers`
@@ -67,4 +94,15 @@ export class VouchersService {
     })
   );
   }
+  getVoucherByUA(value){
+    return this.http.get<IVoucherSO>(
+      `${API_DOMAIN}unauthentic/stores/store/vouchers/voucher/${value}`
+  ).pipe(
+    map(res => {
+      console.log(res);
+      return res;
+    })
+  );
+  }
+  
 }

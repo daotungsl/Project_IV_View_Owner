@@ -24,7 +24,8 @@ import { HomeTopHotDealComponent } from './home-page/home-top-hot-deal.component
     CategoryPageTopComponent,
     CategoryMainContentComponent,
     CardItemComponent,
-    HomeTopHotDealComponent
+    HomeTopHotDealComponent,
+    
   ],
   exports: [
     HomePageComponent,

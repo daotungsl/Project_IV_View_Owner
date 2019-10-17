@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ERROR_SHOP_INFO } from 'src/app/shared/err-notify';
 import { CustomerService } from 'src/app/auth/customer.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ShopsService } from '../shops.service';
 import { IAccount } from 'src/app/interfaces/web-client/account-wc.interface';
 import { AdminLayoutComponent } from 'src/app/layouts/admin-layout/admin-layout.component';
@@ -20,6 +20,7 @@ export class ShopAddComponent implements OnInit {
   accountInfo: IAccount
   dataCities: any;
   fileToUpload: File = null;
+  redirectUrl: any;
 
   datasTypeStore: any;
 
@@ -29,17 +30,23 @@ export class ShopAddComponent implements OnInit {
     private serviceCustomer: CustomerService,
     private router: Router,
     private admin: AdminLayoutComponent,
+    private customer: CustomerService,
+    private route: ActivatedRoute,
     private webService: WebLayoutService,
 
 
   ) { }
 
   ngOnInit() {
-    this.accountInfo = this.admin.ACCOUNT_SHOP_INFO
-    this.getTypeStore();
+    this.accountInfo = this.admin.ACCOUNT_SHOP_INFO;
+    this.getTypeStore()
+    console.log(this.accountInfo)
     this.getAllCity();
+    this.route.queryParamMap.subscribe(params => {
+      this.redirectUrl = params.get("redirectUrl")
+    })
     if (this.serviceCustomer.isShop() != -1) {
-      this.router.navigateByUrl("/shop/controller/info");
+      this.router.navigateByUrl("/shop/info");
     }
     this.formAddShop = this.fb.group(
       this.serviceShopAdd.AddInfoFormControl
@@ -57,7 +64,6 @@ export class ShopAddComponent implements OnInit {
       .get('email')
       .setValue(this.accountInfo.data.account.email);
 
-
   }
   
   checkBoxValue(e) {
@@ -74,18 +80,30 @@ export class ShopAddComponent implements OnInit {
       .subscribe({
         next: value => {
           console.log(value)
-
-
+          this.customer.removeAccount();
+          this.customer.removeAccountStore();
+          this.customer.removeStore();
+          this.customer.removeToken();
+          this.customer.removeTypeStore();
+          this.customer.removeTypeVoucher();
+          this.customer.removeVoucherList();
+          this.router.navigateByUrl('/user/login')
 
         },
         error: err => {
+          if(err.error.status == 401){
+            alert(err.error.message)
+          }
+          if(err.error.status == 403){
+            alert(err.error.message)
+          }
           console.log(err)
 
         }
       })
   }
   getTypeStore() {
-    this.serviceShopAdd.getTypeStore().subscribe({
+    this.webService.getTypeStore().subscribe({
       next: value => {
         console.log(value)
         this.datasTypeStore = value.data;

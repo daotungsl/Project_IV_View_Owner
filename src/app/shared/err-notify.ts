@@ -31,7 +31,7 @@ export const ERROR_ADDRESS ={
     },
     description: {
         required : 'Description must not empty',
-        maxLength: 'Only 100 character'
+        minLength: 'Description more than 20 characters'
     },
     cityId: {
         required : 'City must be chosen',
@@ -64,5 +64,78 @@ export const ERROR_SHOP_INFO ={
         required : 'TypeStore must not empty',
         syntax: ''
     },
+
+}
+export const ERROR_ODER_VOUCHER ={
+    address: {
+        required : 'Store address must be chosen',
+    },
+    time: {
+        required : 'Time must be chosen',
+    },
+    adults: {
+        required : 'Aults must be chosen',
+
+    },
+    children: {
+        required : 'Children must be chosen',
+
+    },
+    description: {
+        required : 'Description must not empty',
+        syntax: ''
+    },
+    day: {
+        required : 'Day must be chosen',
+        syntax: ''
+    },
+
+}
+export const ERROR_SHOP_VOUCHER ={
+    name: {
+        required : 'Name must not empty',
+        maxLength: 'Only 200 character'
+    },
+    description: {
+        required : 'Description must not empty',
+        maxLength: 'Only 1000 character'
+       
+    },
+    image: {
+        required : 'Image must not empty',
+        syntax: ''
+    },
+    percent: {
+        required : 'Percent must not empty',
+        syntax: ''
+    },
+    maxSlot: {
+        required : 'Max slot must not empty',
+        syntax: ''
+    },
+    startDay: {
+        required : 'Start day must not empty',
+        syntax: ''
+    },
+    expiredDay: {
+        required : 'End day must not empty',
+        syntax: ''
+    },
+    startTime: {
+        required : 'Start time must not empty',
+        syntax: ''
+    },
+    endTime: {
+        required : 'End time must not empty',
+        syntax: ''
+    },
+    dayWeek: {
+        required : 'Day week must not empty',
+        syntax: ''
+    },
+    typeVoucherId: {
+        required : 'TypeStore must not empty',
+        syntax: ''
+    }
 
 }

@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Md5 } from 'ts-md5';
 import { ShopsService } from 'src/app/modules/shop-view/shops/shops.service';
 import { IInfoSo } from 'src/app/interfaces/shop-owner/Info-so.interface';
+import { WebLayoutService } from 'src/app/layouts/web-layout/web-layout.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private customer: CustomerService,
     private shopService: ShopsService,
     private router: Router,
+    private webService: WebLayoutService,
     private route: ActivatedRoute
   ) { }
 
@@ -33,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl("/");
     }
     if (this.customer.isLoggedShop()) {
-      this.router.navigateByUrl("/shop/controller/dashboard");
+      this.router.navigateByUrl("/shop/dashboard");
     }
     this.form = this.fb.group(this.service.loginFormControl);
     this.route.queryParamMap.subscribe(params => {
@@ -74,14 +76,25 @@ export class LoginComponent implements OnInit, OnDestroy {
             console.log('in user');
             this.customer.setAccount(value);
             this.customer.setTokenAccount(this.token);
-            this.redirectUrl='/'
+            this.redirectUrl = '/'
           }
 
           if (value.data.account.typeAccount == 1) {
             console.log('in shop');
+
             this.customer.setAccountStore(value);
             this.customer.setTokenStore(this.token);
-            this.redirectUrl='/store/controller/dashboard'
+
+            this.webService.getInfoStore(value.data.account.storeId)
+              .subscribe({
+                next: value => {
+                  this.customer.setStore(value);
+                },
+                error: err => {
+                  console.log(err)
+                }
+              });
+            this.redirectUrl = '/store/controller/dashboard'
           }
 
           this.router.navigateByUrl(this.redirectUrl)

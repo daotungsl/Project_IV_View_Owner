@@ -95,9 +95,9 @@
               
               >
               <option selected disabled="disabled" [value]="null">Type Store</option>
-              <option *ngFor="let dataTypeStore of datasTypeStore"
-              [ngValue]="dataTypeStore.id">
-              {{dataTypeStore.name}}</option>
+              <option *ngFor="let data of datasTypeStore"
+              [ngValue]="data.id">
+              {{data.name}}</option>
               </select>
               <div>
                 <ng-container *ngIf="typeStoreId.invalid && typeStoreId.dirty || myform.submitted">
@@ -144,7 +144,7 @@
               </ng-container>
             </div>
           </div>
-            <div class="form-group"  *ngIf="formAddShop.get('images') as images">
+            <!-- <div class="form-group"  *ngIf="formAddShop.get('images') as images">
               <input type="file" id="input-image" class="form-control form-control-alternative" 
               [formControl]='images'
               (change)="handleFileInput($event.target.files)">
@@ -156,7 +156,25 @@
     
                 </ng-container>
               </div>
-            </div>
+            </div> -->
+            <div class="form-group"  *ngIf="formAddShop.get('images') as images">
+                <div class="input-group input-group-alternative mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-image"></i></span>
+                  </div>
+                <input type="tex" id="input-image" class="form-control form-control-alternative" 
+                [formControl]='images'
+                placeholder="">
+                </div>
+                <div>
+                  <ng-container *ngIf="images.invalid && images.dirty || myform.submitted">
+                    <div class="text-danger">
+                      <span *ngIf="images.hasError('required')">{{errors.image.required}}</span>
+                    </div>
+      
+                  </ng-container>
+                </div>
+              </div>
 
             
             <div class="form-group" *ngIf="formAddShop.get('description') as description">

@@ -3,16 +3,16 @@
 style="visibility: visible; animation-name: fadeIn; animation-delay: 0.3s;">
 <div class="row">
   <div class="col-3">
-    <a class="btn btn-danger btn-lg btn-block mb-5 waves-effect waves-light">
-      <i class="far fa-calendar-check mr-1" aria-hidden="true"></i>
-      Đặt chỗ ngay &gt;&gt;
+    <a class="btn btn-danger btn-lg btn-block mb-5 waves-effect waves-light" routerLinkActive="active" routerLink="/user/register-store">
+      <i class="fas fa-store-alt mr-1" aria-hidden="true"></i>
+      Kênh nhà hàng &gt;&gt;
     </a>
     <div class="list-group">
       <button type="button" class="list-group-item list-group-item-action disabled text-center" disabled="">
         <strong class="text-dark">Danh Mục</strong>
       </button>
       <ng-container *ngFor="let category of dataCategories">
-          <button type="button" class="list-group-item list-group-item-action" routerLinkActive="active" routerLink="/{{category.nameUnAccent}}">
+          <button type="button" class="list-group-item list-group-item-action" routerLinkActive="active" routerLink="/category/{{category.nameUnAccent}}">
               <div class="row">
                 <div class="col-2">
                   <i *ngIf="category.nameUnAccent == 'do-an'" class="fas fa-utensils" aria-hidden="true"></i>
@@ -242,40 +242,4 @@ style="visibility: visible; animation-name: fadeIn; animation-delay: 0.3s;">
 
 
 
-<!-- <div class="home-page">
-<div class="home-page_block">
-  <div class="home-page_block_left">
-    <div class="category-list-menu">
 
-       Navigation 
-      <ul class="navbar-nav">
-        <li *ngFor="let data of dataCategories" class=" nav-item">
-          <a routerLinkActive="active" [routerLink]="['/category']" class="nav-link">
-             <i class="ni {{menuItem.icon}}"></i> 
-            {{data.name}}
-          </a>
-        </li>
-      </ul>
-
-    </div>
-  </div>
-  <div class="home-page_block_right">
-    <div class="top-feature-heading-homepage">
-        
-      <h2>MỚI &amp; HOT</h2>
-        <div class="border"></div>
-    </div>
-    <div class="row">
-<div class="col-8 test_boder">
-aaa
-</div>
-<div class="col-4 test_boder">
-aaa
-</div>
-    </div>
-    <div>
-
-    </div>
-  </div>
-</div>
-</div> -->

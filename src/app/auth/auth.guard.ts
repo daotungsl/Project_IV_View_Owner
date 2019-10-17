@@ -36,7 +36,7 @@ export class NeedAuthGuard implements CanActivate, CanActivateChild {
     }
     this.router.navigateByUrl(
       this.router.createUrlTree(
-        ['/shop/controller/add'], {
+        ['/shop/add'], {
           queryParams: {
             redirectUrl
           }
@@ -58,7 +58,7 @@ export class NeedAuthGuard implements CanActivate, CanActivateChild {
 
     this.router.navigateByUrl(
       this.router.createUrlTree(
-        ['/shop/controller/add'], {
+        ['/shop/add'], {
           queryParams: {
             redirectUrl
           }

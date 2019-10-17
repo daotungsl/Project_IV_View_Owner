@@ -52,7 +52,7 @@
                                                             <span
                                                                 *ngIf="description.hasError('required')">{{errors.description.required}}</span>
                                                             <span
-                                                                *ngIf="description.hasError('maxlength')">{{errors.description.maxLength}}</span>
+                                                                *ngIf="description.hasError('minlength')">{{errors.description.minLength}}</span>
                                                         </div>
                                                     </ng-container>
                                                 </div>
@@ -67,9 +67,9 @@
                                                     <select class="form-control form-control-alternative"
                                                         id="input-type-store"
                                                         [formControl]='city'>
-                                                        <option selected [value]="undefined">Choose...</option>
-                                                        <option *ngFor="let dataCity of datasCity"
-                                                            [value]="dataCity.cityId">
+                                                        <option selected [value]="null">Choose...</option>
+                                                        <option *ngFor="let dataCity of dataCities"
+                                                            [ngValue]="dataCity.id">
                                                             {{dataCity.name}}</option>
                                                     </select>
                                                     <ng-container *ngIf="city.invalid && city.dirty || myform.submitted">
@@ -82,46 +82,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-10">
-                                                    <div class="form-group"
-                                                    *ngIf="formAddAddress.get('storeId') as store">
-                                                    <label class="form-control-label" for="input-store">Store</label>
-                                                    <select class="form-control form-control-alternative"
-                                                        id="input-type-store"
-                                                        [formControl]='store'>
-                                                        <option  selected  [value]="undefined">Choose...</option>
-                                                        <option *ngFor="let dataStore of datasStore"
-                                                            [value]="dataStore.storeId">
-                                                            {{dataStore.name}}</option>
-
-                                                    </select>
-                                                    <ng-container *ngIf="store.invalid && store.dirty || myform.submitted">
-                                                            <div class="text-danger">
-                                                                <span
-                                                                    *ngIf="store.hasError('required')">{{errors.storeId.required}}</span>
-
-                                                            </div>
-                                                        </ng-container>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="row">
-                                            <div class="col-lg-10">
-                                                <div class="form-group">
-                                                    <label class="form-control-label" for="input-status">Status</label>
-                                                    <select class="form-control form-control-alternative"
-                                                        id="input-status">
-                                                        <option selected>Choice...</option>
-                                                        <option *ngFor="let dataStatus of datasStatus"
-                                                            [value]="dataStatus.name">
-                                                            {{dataStatus.name}}</option>
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div> -->
-
+                                       
+                        
                                     </div>
                                     <div class="text-center">
                                         <button class="btn btn-icon btn-primary" (click)="doSubmit()">
@@ -151,14 +113,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of datas">
+                        <tr *ngFor="let data of storeAddresses | reversePipe">
                             <th scope="row">
                                 <div class="media align-items-center">
                                     <!-- <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
                             <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
                           </a> -->
-                                    <div class="media-body">
-                                        <span class="mb-0 text-sm">{{data.address}}</span>
+                                    <div class="media-body under-cut" >
+                                        <span class="mb-0 text-sm">{{data?.address}}</span>
                                     </div>
                                 </div>
                             </th>
@@ -167,14 +129,10 @@
                             </td>
 
                             <td>
-                                <ng-container *ngFor="let e of datasCity">
-                                    <div *ngIf="data.cityId === e.cityId">{{e.name}} </div>
-                                </ng-container>
+                                   {{data.city}}
                             </td>
                             <td>
-                                <ng-container *ngFor="let e of datasStore">
-                                    <div *ngIf="data.storeId === e.storeId">{{e.name}} </div>
-                                </ng-container>
+                                {{data.store}}
                             </td>
                             <td>
                                 <div *ngIf="data.status == 0">
@@ -221,13 +179,13 @@
                                     <div class="modal-content">
                                         <div class="modal-body ">
                                             <div class="card bg-secondary shadow border-0">
-                                                <form role="form" [formGroup]="formAddAddress">
+                                                <form role="form" [formGroup]="formUpdateAddress">
                                                     <h3 class=" text-center mb-4">Edit Address</h3>
                                                     <div class="pl-lg-4">
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <div class="form-group"
-                                                                    *ngIf="formAddAddress.get('address') as address">
+                                                                    *ngIf="formUpdateAddress.get('address') as address">
                                                                     <label class="form-control-label"
                                                                         for="input-address-name">Address</label>
                                                                     <input type="text" id="input-address-name"
@@ -252,7 +210,7 @@
 
                                                             <div class="col-lg-10">
                                                                 <div class="form-group"
-                                                                    *ngIf="formAddAddress.get('description') as description">
+                                                                    *ngIf="formUpdateAddress.get('description') as description">
                                                                     <label class="form-control-label"
                                                                         for="input-des">Description</label>
                                                                     <input type="tex" id="input-des"
@@ -266,7 +224,7 @@
                                                                             <span
                                                                                 *ngIf="description.hasError('required')">{{errors.description.required}}</span>
                                                                             <span
-                                                                                *ngIf="description.hasError('maxlength')">{{errors.description.maxLength}}</span>
+                                                                                *ngIf="description.hasError('minlength')">{{errors.description.minLength}}</span>
                                                                         </div>
                                                                     </ng-container>
                                                                 </div>
@@ -276,16 +234,15 @@
                                                         <div class="row">
                                                             <div class="col-lg-10">
                                                                 <div class="form-group"
-                                                                    *ngIf="formAddAddress.get('cityId') as city">
+                                                                    *ngIf="formUpdateAddress.get('cityId') as city">
                                                                     <label class="form-control-label"
                                                                         for="input-city">City</label>
                                                                     <select
                                                                         class="form-control form-control-alternative"
-                                                                        id="input-type-store" [formControl]='city'>
+                                                                        id="input-city" [formControl]='city'>
 
-                                                                        <option *ngFor="let dataCity of datasCity"
-                                                                            [selected]="dataCity.cityId === data.cityId"
-                                                                            [value]="dataCity.cityId">
+                                                                        <option *ngFor="let dataCity of dataCities"
+                                                                            [ngValue]="dataCity.id">
                                                                             {{dataCity.name}}</option>
                                                                     </select>
                                                                     <ng-container *ngIf="city.invalid && city.dirty">
@@ -298,52 +255,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-10">
-                                                                <div class="form-group"
-                                                                    *ngIf="formAddAddress.get('storeId') as store">
-
-                                                                    <label class="form-control-label"
-                                                                        for="input-store">Store</label>
-                                                                    <select
-                                                                        class="form-control form-control-alternative"
-                                                                        id="input-type-store" [formControl]='store'>
-                                                                        <option *ngFor="let dataStore of datasStore"
-                                                                            [selected]="dataStore.storeId === data.storeId"
-                                                                            [value]="dataStore.storeId">
-                                                                            {{dataStore.name}}</option>
-
-                                                                    </select>
-                                                                    <ng-container *ngIf="store.invalid && store.dirty">
-                                                                        <div class="text-danger">
-                                                                            <span
-                                                                                *ngIf="store.hasError('required')">{{errors.storeId.required}}</span>
-
-                                                                        </div>
-                                                                    </ng-container>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- <div class="row">
-                                                            <div class="col-lg-10">
-                                                                <div class="form-group">
-                                                                    <label class="form-control-label"
-                                                                        for="input-status">Status</label>
-                                                                    <select
-                                                                        class="form-control form-control-alternative"
-                                                                        id="input-status">
-                                                                        <option *ngFor="let dataStatus of datasStatus"
-                                                                            [selected]="dataStatus.statusId === data.status"
-                                                                            [value]="dataStatus.name">
-                                                                            {{dataStatus.name}}</option>
-
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div> -->
+                                                       
+                                                       
                                                     </div>
                                                     <div>
-                                                        <button class="btn btn-icon btn-primary" (click)="doSubmit()">
+                                                        <button class="btn btn-icon btn-primary" (click)="doSubmitUpdate()">
                                                             <span class="btn-inner--text">Submit</span>
                                                         </button>
                                                         <button type="button"
@@ -368,20 +284,20 @@
                                                 <p>{{data.address}}</p>
                                                 <h4 class="heading mt-4">With Status
                                                 </h4>
-                                                <ng-container *ngFor="let e of datasStatus">
-                                                    <p *ngIf="data.status === e.statusId">{{e.name}} </p>
-                                                </ng-container>
+                                                    <p *ngIf="data.status === 0">Cancelled </p>
+                                                    <p *ngIf="data.status === 1">Completed </p>
+                                                    <p *ngIf="data.status === 2">Pending </p>
 
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-white">Ok, Got it</button>
+                                            <button type="button" class="btn btn-white" (click)="doDelete()">Ok, Got it</button>
                                             <button type="button" class="btn btn-link text-white ml-auto"
                                                 data-dismiss="modal" (click)="c">Close</button>
                                         </div>
                                     </div>
                                 </ng-template>
-
+                               
                             </td>
                         </tr>
                     </tbody>
@@ -400,10 +316,10 @@
                         <li class="page-item active">
                             <a class="page-link" href="javascript:void(0)">1</a>
                         </li>
-                        <li class="page-item">
+                        <!-- <li class="page-item">
                             <a class="page-link" href="javascript:void(0)">2 <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+                        <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li> -->
                         <li class="page-item">
                             <a class="page-link" href="javascript:void(0)">
                                 <i class="fas fa-angle-right"></i>

@@ -11,6 +11,8 @@ import { VoucherAddComponent } from './voucher-add/voucher-add.component';
 import { VoucherListComponent } from './voucher-list/voucher-list.component';
 import { VoucherComponent } from './voucher/voucher.component';
 import { CardVoucherComponent } from './card-voucher.component';
+import { RemovewhitespacesPipe } from 'src/app/shared/removewhitespaces.pipe';
+import { VoucherUpdateComponent } from './voucher-update/voucher-update.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -24,7 +26,9 @@ import { CardVoucherComponent } from './card-voucher.component';
     VoucherComponent,
     VoucherAddComponent,
     VoucherListComponent,
-    CardVoucherComponent
+    CardVoucherComponent,
+    RemovewhitespacesPipe,
+    VoucherUpdateComponent
 
   ]
 })

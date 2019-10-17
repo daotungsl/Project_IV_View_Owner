@@ -4,6 +4,6 @@ import { HomePageComponent } from 'src/app/modules/user-view/home-page/home-page
 
 export const WebLayoutRoutes: Routes = [
     { path: '', component: HomePageComponent },
-    { path: ':url', component: CategoryPageComponent },
+    { path: 'category/:url', component: CategoryPageComponent },
 
 ];

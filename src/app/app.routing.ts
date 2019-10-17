@@ -7,6 +7,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { WebLayoutComponent } from './layouts/web-layout/web-layout.component';
 import { ShopLoginAuthGuard } from './auth/auth-shop-login.guard';
+import { DetailPageComponent } from './modules/user-view/detail-page/detail-page.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,11 @@ const routes: Routes = [
     ]
   }, 
   {
+    path: 'detail/:url',
+    component: DetailPageComponent,
+    
+  }, 
+  {
     path: 'shop',
     component: AdminLayoutComponent,
     canActivate:[ShopLoginAuthGuard],
@@ -30,7 +36,7 @@ const routes: Routes = [
     // },
     children: [
       {
-        path: 'controller',
+        path: '',
         loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule',
         data: {
           title: 'Day la shop',

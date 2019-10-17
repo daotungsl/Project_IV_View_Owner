@@ -40,9 +40,13 @@ export class HeaderWebComponent implements OnInit {
     this.getAllCity();
   }
   tryLogout() {
-    this.customer.removeToken();
     this.customer.removeAccount();
+    this.customer.removeAccountStore();
     this.customer.removeStore();
+    this.customer.removeToken();
+    this.customer.removeTypeStore();
+    this.customer.removeTypeVoucher();
+    this.customer.removeVoucherList();
     this.router.navigateByUrl('/')
   }
 

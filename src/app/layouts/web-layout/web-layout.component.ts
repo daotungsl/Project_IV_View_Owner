@@ -20,7 +20,7 @@ export class WebLayoutComponent implements OnInit {
 
   ngOnInit() {
     if (this.customer.isLoggedShop()) {
-      this.router.navigateByUrl("/shop/controller/dashboard");
+      this.router.navigateByUrl("/shop/dashboard");
     }
   }
 

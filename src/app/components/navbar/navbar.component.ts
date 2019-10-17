@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   public location: Location;
   username:any;
   shopname:any;
+  avatar:any;
 
 
   constructor(
@@ -41,12 +42,17 @@ export class NavbarComponent implements OnInit {
     })
     this.username = this.admin.NAME_USER;
     this.shopname = this.admin.NAME_SHOP;
+    this.avatar = this.admin.AVATAR_SHOP;
   }
 
   tryLogout() {
-    this.customer.removeToken();
     this.customer.removeAccount();
+    this.customer.removeAccountStore();
     this.customer.removeStore();
+    this.customer.removeToken();
+    this.customer.removeTypeStore();
+    this.customer.removeTypeVoucher();
+    this.customer.removeVoucherList();
     this.router.navigateByUrl('/')
   }
   getTitle() {

@@ -22,6 +22,7 @@ export class RegisterStoreComponent implements OnInit {
   date = new Date();
   account: any;
   passEnd: any;
+  fileToUpload: File = null;
   
 
 
@@ -36,7 +37,7 @@ export class RegisterStoreComponent implements OnInit {
 
   ngOnInit() {
     if (this.customer.isLogged()) {
-      this.router.navigateByUrl("/shop/controller/dashboard");
+      this.router.navigateByUrl("/shop/dashboard");
     }
     this.formRegister = this.fb.group(
       this.serviceRegister.registerStoreFormControl,
@@ -49,6 +50,7 @@ export class RegisterStoreComponent implements OnInit {
 
   }
   doSubmit() {
+    console.log(this.formRegister.value);
 
     if (this.formRegister.invalid) {
       return;
@@ -74,7 +76,7 @@ export class RegisterStoreComponent implements OnInit {
                 this.customer.setAccountStore(value)
                 this.token = value.data.credential.accessToken;
                 this.customer.setTokenStore(this.token);
-                this.router.navigateByUrl('/shop/controller')
+                this.router.navigateByUrl('/shop')
 
                  console.log('request success', localStorage.getItem('TOKEN'));
 
@@ -93,5 +95,21 @@ export class RegisterStoreComponent implements OnInit {
         }
       })
   }
-
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    console.log(this.fileToUpload);
+    this.uploadFileToActivity(this.fileToUpload);
+}
+  uploadFileToActivity(value) {
+    this.serviceRegister.postFile(value)
+    .subscribe({
+      next: value => {
+        console.log(value)
+      },
+      error: err => {
+        console.log(err)
+  
+      }
+    })
+  }
 }

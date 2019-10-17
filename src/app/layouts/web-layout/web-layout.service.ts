@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ICity } from 'src/app/interfaces/web-client/city-wc.interface';
-import { API_DOMAIN, HTTP_HEADER_STORE } from 'src/app/shared/constant';
+import { API_DOMAIN, HTTP_HEADER_STORE, HTTP_HEADER_STORE_UPFILE } from 'src/app/shared/constant';
 import { map } from 'rxjs/operators';
 import { ITypeVoucherSO } from 'src/app/interfaces/shop-owner/voucher-type-so.interface';
 import { IAllVoucher } from 'src/app/interfaces/web-client/voucher-all.interface';
+import { IInfoSo } from 'src/app/interfaces/shop-owner/Info-so.interface';
+import { IVoucherSO } from 'src/app/interfaces/shop-owner/voucher-so.interface';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +16,18 @@ import { IAllVoucher } from 'src/app/interfaces/web-client/voucher-all.interface
 export class WebLayoutService {
 
   constructor(
+    private router: Router,
     private http: HttpClient
   ) { }
-
+  
+  scrollView(x: number, y: number) {
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      window.scrollTo(x, y);
+    });
+  }
   getCity(): Observable<ICity> {
     return this.http.get<ICity>(
       `${API_DOMAIN}unauthentic/cities/city`
@@ -49,19 +61,52 @@ export class WebLayoutService {
       })
     );
   }
+  getInfoStore(value): Observable<IInfoSo> {
+    return this.http.get<IInfoSo>(
+      `${API_DOMAIN}unauthentic/stores/store/-/${value}`
+
+    ).pipe(
+      map(res => {
+        console.log(res);
+        return res;
+      })
+    );
+  }
+  getTypeStore(): Observable<any> {
+    return this.http.get<any>(
+      `${API_DOMAIN}unauthentic/type-stores`
+
+    ).pipe(
+      map(res => {
+        console.log(res);
+        return res;
+      })
+    );
+  }
+  getAllVoucherByType(value): Observable<IAllVoucher> {
+    return this.http.get<IAllVoucher>(
+      `${API_DOMAIN}unauthentic/type-vouchers/type-voucher/${value}/vouchers`
+
+    ).pipe(
+      map(res => {
+        console.log(res);
+        return res;
+      })
+    );
+  }
   postFile(fileToUpload: File): Observable<any> {
     console.log(fileToUpload);
-    console.log(HTTP_HEADER_STORE)
+    console.log(HTTP_HEADER_STORE_UPFILE)
     const formData = new FormData();
     formData.append('file', fileToUpload);
     console.log(formData)
     // formData.set('file',fileToUpload,fileToUpload.name);
     console.log(formData.get('file'));
     return this.http.post(
-      `${API_DOMAIN}api/file/upload`,
+      `${API_DOMAIN}/unauthentic/file/upload`,
       formData,
       {
-        headers: HTTP_HEADER_STORE
+        headers: HTTP_HEADER_STORE_UPFILE
       }
     ).pipe(
       map(res => {

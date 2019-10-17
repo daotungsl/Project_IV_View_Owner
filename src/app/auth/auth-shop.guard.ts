@@ -17,7 +17,7 @@ export class ShopAuthGuard implements CanActivate {
       }
       this.router.navigateByUrl(
         this.router.createUrlTree(
-          ['/shop/controller/add'], {
+          ['/shop/add'], {
             queryParams: {
               redirectUrl
             }

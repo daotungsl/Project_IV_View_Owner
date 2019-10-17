@@ -2,12 +2,16 @@ import {Injectable} from '@angular/core';
 import { LoginComponent } from '../pages/login/login.component';
 import { IAccount } from '../interfaces/web-client/account-wc.interface';
 import { IInfoSo } from '../interfaces/shop-owner/Info-so.interface';
+import { IVoucherSO } from '../interfaces/shop-owner/voucher-so.interface';
 
 const ACCOUNT_TOKEN = 'ACCOUNT_TOKEN';
 const STORE_TOKEN = 'STORE_TOKEN';
 const ACCOUNT = 'ACCOUNT';
 const STORE = 'STORE';
 const ACCOUNT_STORE = 'ACCOUNT_STORE';
+const STORE_VOUCHER_LIST = 'STORE_VOUCHER_LIST';
+const STORE_TYPE_VOUCHER = 'STORE_TYPE_VOUCHER';
+const STORE_TYPE = 'STORE_TYPE';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +28,7 @@ export class CustomerService {
   }
 
   setAccount(account: IAccount): void {
-    if(localStorage.getItem(ACCOUNT)){
-      this.removeAccount();
-    }
+
     localStorage.setItem(ACCOUNT, JSON.stringify(account));
     console.log(localStorage.getItem(ACCOUNT));
   }
@@ -40,9 +42,7 @@ export class CustomerService {
  
    }
    setAccountStore(account: IAccount): void {
-    if(localStorage.getItem(ACCOUNT_STORE)){
-      this.removeAccount();
-    }
+
     localStorage.setItem(ACCOUNT_STORE, JSON.stringify(account));
     console.log(localStorage.getItem(ACCOUNT_STORE));
   }
@@ -57,9 +57,7 @@ export class CustomerService {
    }
 
   setStore(store: IInfoSo): void {
-    if(localStorage.getItem(STORE)){
-      this.removeStore();
-    }
+ 
     localStorage.setItem(STORE, JSON.stringify(store));
     console.log(localStorage.getItem(STORE));
   }
@@ -72,7 +70,49 @@ export class CustomerService {
 
   }
 
-  
+  setVoucherList(voucher : any): void {
+
+    localStorage.setItem(STORE_VOUCHER_LIST, JSON.stringify(voucher));
+    console.log(localStorage.getItem(STORE_VOUCHER_LIST));
+  }
+  getVoucherList(): any{
+    console.log('in get voucher');
+    return JSON.parse(localStorage.getItem(STORE_VOUCHER_LIST));
+   }
+  removeVoucherList(): void{
+    localStorage.removeItem(STORE_VOUCHER_LIST);
+    console.log(localStorage.getItem(STORE_VOUCHER_LIST));
+
+  }
+
+  setTypeVoucher(typeVoucher : any): void {
+
+    localStorage.setItem(STORE_TYPE_VOUCHER, JSON.stringify(typeVoucher));
+    console.log(localStorage.getItem(STORE_TYPE_VOUCHER));
+  }
+  getTypeVoucher(): any{
+    console.log('in get voucher');
+    return JSON.parse(localStorage.getItem(STORE_TYPE_VOUCHER));
+   }
+  removeTypeVoucher(): void{
+    localStorage.removeItem(STORE_TYPE_VOUCHER);
+    console.log(localStorage.getItem(STORE_TYPE_VOUCHER));
+
+  }
+  setTypeStore(typeStore : any): void {
+
+    localStorage.setItem(STORE_TYPE, JSON.stringify(typeStore));
+    console.log(localStorage.getItem(STORE_TYPE));
+  }
+  getTypeStore(): any{
+    console.log('in get voucher');
+    return JSON.parse(localStorage.getItem(STORE_TYPE));
+   }
+  removeTypeStore(): void{
+    localStorage.removeItem(STORE_TYPE);
+    console.log(localStorage.getItem(STORE_TYPE));
+
+  }
 
   removeToken(): void{
     localStorage.removeItem(ACCOUNT_TOKEN);
