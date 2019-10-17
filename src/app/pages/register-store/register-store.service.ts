@@ -52,7 +52,12 @@ postFile(fileToUpload: File): Observable<any> {
     `${API_DOMAIN}unauthentic/file/upload`,
     formData,
     {
-      headers: HTTP_HEADER_STORE
+      headers:{
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('STORE_TOKEN'),
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+      }
     }
   ).pipe(
     map(res => {
