@@ -1,7 +1,7 @@
 import { IAccount } from "../interfaces/web-client/account-wc.interface";
 
-// export const API_DOMAIN = 'http://13.77.45.22:8080/';
-export const API_DOMAIN = 'http://localhost:8080/';
+export const API_DOMAIN = 'http://13.76.164.246:8080/';
+// export const API_DOMAIN = 'http://localhost:8080/';
 export const API_IMAGE = 'https://api.cloudinary.com/v1_1/${smileup}/upload';
 
 const ACCOUNT_TOKEN = 'ACCOUNT_TOKEN';

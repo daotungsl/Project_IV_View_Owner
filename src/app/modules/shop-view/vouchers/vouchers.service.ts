@@ -91,7 +91,16 @@ tryOder(value): Observable<any>{
   }
   getAllVoucherByStore(value){
     return this.http.get<IVoucherSO>(
-      `${API_DOMAIN}unauthentic/stores/store/${value}/vouchers`
+      `${API_DOMAIN}api/stores/${value}/vouchers`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('STORE_TOKEN'),
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+        }
+      }
+      
   ).pipe(
     map(res => {
       console.log(res);
