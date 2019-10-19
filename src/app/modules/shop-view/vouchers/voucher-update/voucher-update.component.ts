@@ -65,7 +65,7 @@ export class VoucherUpdateComponent implements OnInit {
     this.accountShopInfo = this.admin.ACCOUNT_SHOP_INFO
 
     this.formVoucherUpdate = this.fb.group(
-      this.serviceVoucher.VoucherFormControl
+      this.serviceVoucher.VoucherUpdateFormControl
     );
 
 this.datasTypeVoucher = this.customer.getTypeVoucher();
@@ -130,6 +130,13 @@ this.datasTypeVoucher = this.customer.getTypeVoucher();
 
   }
   doSubmit() {
+    
+
+    if (this.formVoucherUpdate.invalid) {
+      console.log('invalid')
+      console.log(this.formVoucherUpdate)
+      return;
+    }
     let transStartDay = this.formVoucherUpdate.get('startDay').value;
     let transexpiredDay = this.formVoucherUpdate.get('expiredDay').value;
 
@@ -138,15 +145,7 @@ this.datasTypeVoucher = this.customer.getTypeVoucher();
     this.formVoucherUpdate.get('expiredDay').setValue(this.convertDayToTimls(transexpiredDay));
     console.log(this.formVoucherUpdate.value)
 
-    if (this.formVoucherUpdate.invalid) {
-      console.log('invalid')
-      console.log(this.formVoucherUpdate)
-      return;
-    }
-
-    console.log(this.formVoucherUpdate.value);
-
-    this.serviceVoucher.tryAddVoucher(this.formVoucherUpdate.value)
+    this.serviceVoucher.tryUpdateVoucher(this.formVoucherUpdate.value)
       .subscribe({
         next: value => {
           console.log(value)
@@ -158,7 +157,13 @@ this.datasTypeVoucher = this.customer.getTypeVoucher();
         }
       })
   }
-
+  getImageFromInput(event){
+    if(event.target.value == null){
+      this.filename = './assets/img/brand/img-default.png'
+    }
+    this.filename = event.target.value
+    console.log(event.target.value)
+  }
 
   getVoucher(value) {
     this.dataVoucher = value;
@@ -174,6 +179,7 @@ this.datasTypeVoucher = this.customer.getTypeVoucher();
     });
 
     this.formVoucherUpdate.get('name').setValue(value.name);
+    this.formVoucherUpdate.get('id').setValue(value.id);
     this.formVoucherUpdate.get('description').setValue(value.description);
     this.formVoucherUpdate.get('image').setValue(value.image);
     this.formVoucherUpdate.get('percent').setValue(value.percent);

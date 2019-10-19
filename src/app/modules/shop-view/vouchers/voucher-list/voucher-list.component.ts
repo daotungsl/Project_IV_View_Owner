@@ -72,7 +72,7 @@ export class VoucherListComponent implements OnInit {
       .subscribe({
         next: value => {
           console.log('in get info store' + value)
-          this.getVoucher(value.data.nameUnAccent)
+          this.getVoucher(value.data.id)
         },
         error: err => {
           console.log(err)

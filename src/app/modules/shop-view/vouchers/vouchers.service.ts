@@ -26,6 +26,21 @@ export class VouchersService {
     storeId: [null, [Validators.required]],
     typeVoucherId: [null, [Validators.required]],
   }
+  VoucherUpdateFormControl = {
+    name: [null, [Validators.required, Validators.maxLength(200)]],
+    description: [null, [Validators.required, Validators.maxLength(2000)]],
+    image: [null, [Validators.required]],
+    id: [null, [Validators.required]],
+    percent: [null, [Validators.required]],
+    maxSlot: [null, [Validators.required]],
+    startDay: [null, [Validators.required]],
+    expiredDay: [null, [Validators.required]],
+    startTime: [null, [Validators.required]],
+    endTime: [null, [Validators.required]],
+    dayWeek: ['2,3,4,5,6', [Validators.required]],
+    storeId: [null, [Validators.required]],
+    typeVoucherId: [null, [Validators.required]],
+  }
   OderFornControl = {
     accountId: [null, [Validators.required]],
     storeId: [null, [Validators.required]],
@@ -48,6 +63,27 @@ export class VouchersService {
     console.log(HTTP_HEADER_STORE);
     return this.http.post<IVoucherSO>(
       `${API_DOMAIN}api/stores/store/vouchers/voucher`,
+    value,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('STORE_TOKEN'),
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+      }
+    }
+  ).pipe(
+    map(res => {
+      console.log(res);
+      return res;
+    })
+  );
+  }
+  tryUpdateVoucher(value): Observable<IVoucherSO>{
+    console.log(value);
+    console.log(localStorage.getItem('STORE_TOKEN'));
+    return this.http.put<IVoucherSO>(
+      `${API_DOMAIN}api/stores/store/vouchers/voucher/${value.id}`,
     value,
     {
       headers: {

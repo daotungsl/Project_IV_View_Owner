@@ -50,18 +50,19 @@
                                 </ng-container>
                           </div>
                         </div>
-                        <!-- <div class="col-lg-6">
+                        <div class="col-lg-6">
                           <div class="form-group" *ngIf="formVoucherUpdate.get('image') as image">
                             <label class="form-control-label" for="input-image">Image</label>
-                            <input type="file" id="input-image" class="form-control form-control-alternative"
-                              placeholder="" [formControl]='image'>
-                              <ng-container *ngIf="image.invalid && image.dirty || myform.submitted">
-                                  <div class="text-danger">
-                                    <span *ngIf="image.hasError('required')">{{errors.image.required}}</span>
-                                  </div>
-                                </ng-container>
+                            <input type="text" id="input-image" class="form-control form-control-alternative"
+                              placeholder="Please paste image link..." [formControl]='image'
+                              (input)="getImageFromInput($event)">
+                            <ng-container *ngIf="image.invalid && image.dirty || myform.submitted">
+                              <div class="text-danger">
+                                <span *ngIf="image.hasError('required')">{{errors.image.required}}</span>
+                              </div>
+                            </ng-container>
                           </div>
-                        </div> -->
+                        </div>
                       </div>
                       <div class="row">
                         <div class="col-lg-6">
