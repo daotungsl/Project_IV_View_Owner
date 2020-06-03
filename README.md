@@ -5,12 +5,11 @@
 ## Created by FOCUS TEAM
 * Pham Tien Bac
 * Dao Minh Tung
-* Dinh Van Nam
 ## Class: T1707M
 
 * Project name: Deal Hunter
 * Language: Java, JS
-* Framework: Spring, Angular, Android
+* Framework: Spring, Angular
 * Supporter: Mr Xuan Hung
 
 
